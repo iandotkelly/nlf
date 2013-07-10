@@ -10,6 +10,8 @@ and its dependencies, reading all terms of any included or referenced license.
 
 ## Setup
 
+PLEASE NOTE THIS HAD NOT BEEN PUBLISHED TO NPM YET.
+
 Do this:
 
 ```sh

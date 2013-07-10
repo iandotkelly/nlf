@@ -63,14 +63,114 @@ describe('Module', function () {
 			var myModule = new Module('my-module'),
 				summary;
 			myModule.licenses.package.push('MIT');
-			console.log(myModule);
 			summary = myModule.summaryLicenses();
 			summary.should.be.an.array;
 			summary.length.should.be.equal(1);
 			summary[0].should.be.equal('MIT');			
 		});
+
+		it('when a two different package licenses are added, they appear in the summary alphabetically', function () {
+			var myModule = new Module('my-module'),
+				summary;
+			myModule.licenses.package.push('MIT');
+			myModule.licenses.package.push('Apache');
+			summary = myModule.summaryLicenses();
+			summary.should.be.an.array;
+			summary.length.should.be.equal(2);
+			summary[0].should.be.equal('Apache');	
+			summary[1].should.be.equal('MIT');
+		});
+
+
+		it('when a single license file license is added, should appear in the summary', function () {
+			var myModule = new Module('my-module'),
+				summary;
+			myModule.licenses.license.push('MIT');
+			summary = myModule.summaryLicenses();
+			summary.should.be.an.array;
+			summary.length.should.be.equal(1);
+			summary[0].should.be.equal('MIT');			
+		});
+
+
+		it('when a two different license file licenses are added, they appear in the summary alphabetically', function () {
+			var myModule = new Module('my-module'),
+				summary;
+			myModule.licenses.license.push('MIT');
+			myModule.licenses.license.push('Apache');
+			summary = myModule.summaryLicenses();
+			summary.should.be.an.array;
+			summary.length.should.be.equal(2);
+			summary[0].should.be.equal('Apache');	
+			summary[1].should.be.equal('MIT');
+		});
+
+		it('when a single readme license is added, should appear in the summary', function () {
+			var myModule = new Module('my-module'),
+				summary;
+			myModule.licenses.readme.push('MIT');
+			summary = myModule.summaryLicenses();
+			summary.should.be.an.array;
+			summary.length.should.be.equal(1);
+			summary[0].should.be.equal('MIT');			
+		});
+
+
+		it('when a two different readme licenses are added, they appear in the summary alphabetically', function () {
+			var myModule = new Module('my-module'),
+				summary;
+			myModule.licenses.readme.push('MIT');
+			myModule.licenses.readme.push('Apache');
+			summary = myModule.summaryLicenses();
+			summary.should.be.an.array;
+			summary.length.should.be.equal(2);
+			summary[0].should.be.equal('Apache');	
+			summary[1].should.be.equal('MIT');
+		});
+
+		it('duplicate licenses from different sources are removed from the summary', function () {
+			var myModule = new Module('my-module'),
+				summary;
+			myModule.licenses.package.push('MIT');
+			myModule.licenses.package.push('Apache');
+			myModule.licenses.package.push('GPL');
+			myModule.licenses.license.push('MIT');
+			myModule.licenses.license.push('Apache');
+			myModule.licenses.readme.push('MIT');
+			myModule.licenses.readme.push('Apache');
+			summary = myModule.summaryLicenses();
+			summary.should.be.an.array;
+			summary.length.should.be.equal(3);
+			summary[0].should.be.equal('Apache');	
+			summary[1].should.be.equal('GPL');	
+			summary[2].should.be.equal('MIT');
+		});
+
+	});
+
+	describe('csvHeading method', function () {
+
+		it('should return the correct string', function () {
+			var myModule = new Module('my-module');
+			myModule.csvHeading().should.equal('name,repository,type,summary,from package.json,from license,from readme');
+		});
+
 	});
 
 
+	describe('toCsvRecord method', function () {
+
+		it('should return the correct string', function () {
+			var myModule = new Module('my-module'),
+				summary;
+			myModule.licenses.package.push('MIT');
+			myModule.licenses.package.push('GPL');
+			myModule.licenses.license.push('MIT');
+			myModule.licenses.license.push('Apache');
+			myModule.licenses.readme.push('MIT');
+			myModule.licenses.readme.push('Apache');
+			myModule.toCsvRecord().should.equal('my-module,(none),(none),Apache;GPL;MIT,GPL;MIT,Apache;MIT,Apache;MIT');
+		});
+	});
 
 });
