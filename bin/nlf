@@ -1,0 +1,13 @@
+#!/bin/sh
+
+basedir=`dirname "$0"`
+
+case `uname` in
+    *CYGWIN*) basedir=`cygpath -w "$basedir"`;;
+esac
+
+if [ -x "./node.exe" ]; then
+  "$basedir/node.exe" "$basedir/nlf-cli.js" "$@"
+else
+  node "$basedir/nlf-cli.js" "$@"
+fi

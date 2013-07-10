@@ -1,0 +1,19 @@
+{
+  "name": "nlf",
+  "title": "Node License Finder",
+  "version": "0.0.1",
+  "license": "MIT",
+  "dependencies": {
+    "commander": "latest",
+    "read-installed": "latest",
+    "node-glob": "latest"
+  },
+  "devDependencies": {
+    "jshint": "latest",
+    "should": "latest",
+    "mocha": "latest"
+  },
+  "engines": {
+    "node": "latest"
+  }
+}
