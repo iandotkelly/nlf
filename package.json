@@ -6,12 +6,14 @@
   "dependencies": {
     "commander": "latest",
     "read-installed": "latest",
-    "glob": "latest"
+    "glob": "latest",
+    "json-stringify-safe": "~5.0.0"
   },
   "devDependencies": {
     "jshint": "latest",
     "should": "latest",
-    "mocha": "latest"
+    "mocha": "latest",
+    "globs": "~0.1.0"
   },
   "engines": {
     "node": "latest"
