@@ -1,7 +1,7 @@
 
 'use strict';
 
-var Module = require('../../lib/module'),
+var Module = require('../..').Module,
 	should = require('should');
 
 describe('Module', function () {
@@ -70,7 +70,7 @@ describe('Module', function () {
 			summary = myModule.summaryLicenses();
 			summary.should.be.an.array;
 			summary.length.should.be.equal(1);
-			summary[0].should.be.equal('MIT');			
+			summary[0].should.be.equal('MIT');
 		});
 
 		it('when a two different package licenses are added, they appear in the summary alphabetically', function () {
@@ -81,7 +81,7 @@ describe('Module', function () {
 			summary = myModule.summaryLicenses();
 			summary.should.be.an.array;
 			summary.length.should.be.equal(2);
-			summary[0].should.be.equal('Apache');	
+			summary[0].should.be.equal('Apache');
 			summary[1].should.be.equal('MIT');
 		});
 
@@ -93,7 +93,7 @@ describe('Module', function () {
 			summary = myModule.summaryLicenses();
 			summary.should.be.an.array;
 			summary.length.should.be.equal(1);
-			summary[0].should.be.equal('MIT');			
+			summary[0].should.be.equal('MIT');
 		});
 
 
@@ -105,7 +105,7 @@ describe('Module', function () {
 			summary = myModule.summaryLicenses();
 			summary.should.be.an.array;
 			summary.length.should.be.equal(2);
-			summary[0].should.be.equal('Apache');	
+			summary[0].should.be.equal('Apache');
 			summary[1].should.be.equal('MIT');
 		});
 
@@ -116,7 +116,7 @@ describe('Module', function () {
 			summary = myModule.summaryLicenses();
 			summary.should.be.an.array;
 			summary.length.should.be.equal(1);
-			summary[0].should.be.equal('MIT');			
+			summary[0].should.be.equal('MIT');
 		});
 
 
@@ -128,7 +128,7 @@ describe('Module', function () {
 			summary = myModule.summaryLicenses();
 			summary.should.be.an.array;
 			summary.length.should.be.equal(2);
-			summary[0].should.be.equal('Apache');	
+			summary[0].should.be.equal('Apache');
 			summary[1].should.be.equal('MIT');
 		});
 
@@ -145,8 +145,8 @@ describe('Module', function () {
 			summary = myModule.summaryLicenses();
 			summary.should.be.an.array;
 			summary.length.should.be.equal(3);
-			summary[0].should.be.equal('Apache');	
-			summary[1].should.be.equal('GPL');	
+			summary[0].should.be.equal('Apache');
+			summary[1].should.be.equal('GPL');
 			summary[2].should.be.equal('MIT');
 		});
 
