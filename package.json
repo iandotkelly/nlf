@@ -12,7 +12,8 @@
   "devDependencies": {
     "jshint": "latest",
     "should": "latest",
-    "mocha": "latest"
+    "mocha": "latest",
+    "globs": "~0.1.0"
   },
   "engines": {
     "node": "latest"
