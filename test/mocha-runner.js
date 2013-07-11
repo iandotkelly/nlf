@@ -1,7 +1,7 @@
 'use strict';
 
 var Mocha = require('mocha'),
-	reporter = 'spec',
+	reporter = process.env.MOCHA_REPORTER || 'spec',
 	globs = require('globs'),
 	path = require('path'),
 	patterns = [];
