@@ -6,7 +6,8 @@
   "dependencies": {
     "commander": "latest",
     "read-installed": "latest",
-    "glob": "latest"
+    "glob": "latest",
+    "json-stringify-safe": "~5.0.0"
   },
   "devDependencies": {
     "jshint": "latest",
