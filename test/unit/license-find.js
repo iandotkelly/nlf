@@ -1,3 +1,6 @@
+/**
+ * @description Unit tests for the license-find.js module
+ */
 
 'use strict';
 

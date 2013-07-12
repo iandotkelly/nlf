@@ -1,3 +1,6 @@
+/**
+ * @description Unit tests for the file-source.js module
+ */
 
 'use strict';
 
@@ -36,7 +39,6 @@ describe('FileSource', function () {
 
 		beforeEach(function(done){
 			source = new FileSource(path.join(__dirname, '../fixtures/MIT'));
-			console.log(source);
 			source.read(done);
 	  	});
 

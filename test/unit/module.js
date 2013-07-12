@@ -1,3 +1,7 @@
+/**
+ * @description Unit tests for the module.js module
+ */
+
 
 'use strict';
 
