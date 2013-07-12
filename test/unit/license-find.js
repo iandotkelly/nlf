@@ -4,7 +4,7 @@
 
 'use strict';
 
-var licenseFind = require('../../lib/license-find');
+var licenseFind = require('../../lib/license-find'),
 	should = require('should');
 
 describe('license-find', function () {

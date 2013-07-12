@@ -4,7 +4,8 @@
 
 'use strict';
 
-var nlf = require('../../lib/nlf');
+var nlf = require('../../lib/nlf'),
+  path = require('path');
 
 describe('nlf', function () {
 
@@ -15,7 +16,7 @@ describe('nlf', function () {
 
       this.timeout(50000);
       
-      nlf.find(process.cwd(), function (err, data) {
+      nlf.find(path.join(__dirname, '../..'), function (err, data) {
         if (err) {
           return done(err);
         }

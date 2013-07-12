@@ -45,6 +45,10 @@ $ nlf
 
 ## Revision History
 
+### 0.0.2
+
+- Fixed issue with asyncronous recursion over npm data that caused nlf.find() to sometimes not complete.
+
 ### 0.0.1
 
 - First working version.  Command line produces CSV output to standard out

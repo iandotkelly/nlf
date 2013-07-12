@@ -4,7 +4,7 @@
   "title": "Node License Finder",
   "description": "Find licenses for a node application and its node_module dependencies",
   "author": "Ian Kelly <iandotkelly@gmail.com>",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -22,7 +22,7 @@
     "globs": "~0.1.0"
   },
   "engines": {
-    "node": ">=0.8"
+    "node": ">=0.6"
   },
   "keywords": [
     "license"
