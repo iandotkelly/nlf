@@ -1,20 +1,33 @@
 {
   "name": "nlf",
+  "preferGlobal": true,
   "title": "Node License Finder",
+  "description": "Find licenses for a node application and its node_module dependencies",
+  "author": "Ian Kelly <iandotkelly@gmail.com>",
   "version": "0.0.1",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/iandotkelly/nlf.git"
+  },
   "dependencies": {
-    "commander": "latest",
-    "read-installed": "latest",
-    "glob": "latest"
+    "commander": "~0.6.1",
+    "read-installed": "~0.2.2",
+    "glob": "~3.2.1"
   },
   "devDependencies": {
-    "jshint": "latest",
-    "should": "latest",
-    "mocha": "latest",
+    "jshint": "~2.1.4",
+    "should": "~1.2.2",
+    "mocha": "~1.12.0",
     "globs": "~0.1.0"
   },
   "engines": {
-    "node": "latest"
+    "node": ">=0.8"
+  },
+  "keywords": [
+    "license"
+  ],
+  "scripts": {
+    "test": "make"
   }
 }
