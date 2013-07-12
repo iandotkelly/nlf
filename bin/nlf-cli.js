@@ -9,6 +9,8 @@
  * 
  */
 
+'use strict';
+
 var program = require('commander'),
 	pjson = require('../package.json'),
 	nlf = require('../lib/nlf');
@@ -16,11 +18,15 @@ var program = require('commander'),
 program
 	.command('nlf')
 	.version(pjson.version)
-	.option('-p, --production', 'production dependencies only, ignore any devDependencies in package.json')
+	.option('-p, --production',
+		'production dependencies only, ignore any devDependencies in package.json')
 	.option('-c, --csv', 'report in csv format')
 	.parse(process.argv);
 
-nlf.find('.', function(err, data) {
+nlf.find(process.cwd(), function (err, data) {
+	if (err) {
+		console.error(err);
+	}
 	console.log(data);
 });
 
