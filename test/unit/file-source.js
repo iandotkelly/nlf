@@ -28,7 +28,7 @@ describe('FileSource', function () {
 			var source = new FileSource('/dir/filename');
 			source.filePath.should.be.equal('/dir/filename');
 			source.text.should.be.equal('');
-			source.licenses().length.should.be.equal(0);
+			source.names().length.should.be.equal(0);
 		});
 
 	});
@@ -48,7 +48,7 @@ describe('FileSource', function () {
 		});
 
 		it('should detect an MIT license only', function () {
-			var licenses = source.licenses();
+			var licenses = source.names();
 			licenses.length.should.be.equal(1);
 			licenses[0].should.be.equal('MIT');
 		})

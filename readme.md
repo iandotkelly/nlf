@@ -1,4 +1,4 @@
-# nlf
+# Node License Finder (nlf)
 
 nlf is a utility for attempting to identify the licenses of modules in a node.js project.
 
@@ -10,8 +10,6 @@ and its dependencies, reading all terms of any included or referenced license.
 
 ## Setup
 
-PLEASE NOTE THIS HAD NOT BEEN PUBLISHED TO NPM YET.
-
 Do this:
 
 ```sh
@@ -21,31 +19,35 @@ $ npm install -g nlf
 
 ### Using
 
-nlf can be used programatically, or from the command line
+nlf can be used programatically, or from the command line.
 
 ## Programatically
+
+```javascript
+var nlf = require('lib/nlf');
+
+var results = nlf.find('/User/me/my-project', function (err, data) {
+	// do something with the response object.
+	console.log(JSON.stringify(data));
+});
+```
+
+I will document the response object at some point, but it should be fairly straight forward.
+
+Note, if you run nlf programatically having installed it locally, it will find various spurious false positives from its own test data. So exclude the results from the nlf record.
 
 ## CLI
 
 ```sh
-$ nlf -h
-
-  Usage: nlf [options]
-
-  Options:
-
-    -h, --help        output usage information
-    -V, --version     output the version number
-    -p, --production  production dependencies only, ignore any devDependencies in package.json
-    -c, --csv         report in csv format
-
+$ cd my-module
+$ nlf
 ```
 
 ## Revision History
 
 ### 0.0.1
 
-- Does stuff - but not much
+- First working version.  Command line produces CSV output to standard out
 
 ### License
 
@@ -73,5 +75,5 @@ THE SOFTWARE.
 
 [node.js]: http://nodejs.org
 [mocha]: http://visionmedia.github.com/mocha/
-[The MIT License (MIT)]: http://opensource.org/licenses/MIT
+[(MIT)]: http://opensource.org/licenses/MIT
 

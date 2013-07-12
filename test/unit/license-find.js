@@ -84,6 +84,17 @@ describe('license-find', function () {
 
 	});
 
+	describe('with DO WHAT THE FUCK YOU WANT TO PUBLIC LICENCE text', function () {
+
+		it('should return WTFPL', function () {
+			var output = licenseFind('blah DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE blah');
+			output.length.should.be.equal(1);
+			output[0].should.be.equal('WTFPL');
+		});
+
+	});
+
+
 	describe('with DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE text', function () {
 
 		it('should return WTFPL', function () {

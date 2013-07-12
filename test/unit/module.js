@@ -6,7 +6,16 @@
 'use strict';
 
 var Module = require('../..').Module,
-	should = require('should');
+	PackageSource = require('../..').PackageSource,
+	FileSource = require('../..').FileSource,
+	should = require('should'),
+	fakeMitFile = new FileSource('/dir/myMitFile'),
+	fakeApacheFile = new FileSource('/dir/myApacheFile'),
+	fakeGplFile = new FileSource('/dir/myGplFile');
+
+fakeMitFile.text = 'blah MIT blah';
+fakeApacheFile.text = 'blah The Apache License blah';
+fakeGplFile.text = 'blah GPL blah';
 
 describe('Module', function () {
 
@@ -44,24 +53,27 @@ describe('Module', function () {
 			}).should.throw();
 		});
 
-		it('should have a licenses object with empty arrays in it', function () {
+		it('should have a licenseSources object with empty collections in it', function () {
 			var myModule = new Module('my-module', 'my-module', '1.0.0', '/my/dir');
-			myModule.licenses.should.be.an.object;
-			myModule.licenses.package.should.be.an.array;
-			myModule.licenses.package.length.should.be.equal(0);
-			myModule.licenses.readme.should.be.an.array;
-			myModule.licenses.readme.length.should.be.equal(0);
-			myModule.licenses.license.should.be.an.array;
-			myModule.licenses.license.length.should.be.equal(0);
+			myModule.licenseSources.should.be.an.object;
+			myModule.licenseSources.package.should.be.an.object;
+			myModule.licenseSources.package.sources.should.be.an.array;
+			myModule.licenseSources.package.sources.length.should.be.equal(0);
+			myModule.licenseSources.readme.should.be.an.object;
+			myModule.licenseSources.readme.sources.should.be.an.array;
+			myModule.licenseSources.readme.sources.length.should.be.equal(0);
+			myModule.licenseSources.license.should.be.an.object;
+			myModule.licenseSources.license.sources.should.be.an.array;
+			myModule.licenseSources.license.sources.length.should.be.equal(0);
 		});
 
 	});
 
 	describe('summary method', function() {
 
-		it('when initialized should only Unknown in it', function () {
+		it('when initialized should only have Unknown in it', function () {
 			var myModule = new Module('my-module', 'my-module', '1.0.0', '/my/dir'),
-				summary = myModule.summaryLicenses();
+				summary = myModule.summary();
 			summary.should.be.an.array;
 			summary.length.should.be.equal(1);
 			summary[0].should.be.equal('Unknown');
@@ -70,8 +82,8 @@ describe('Module', function () {
 		it('when a single package license is added, should appear in the summary', function () {
 			var myModule = new Module('my-module', 'my-module', '1.0.0', '/my/dir'),
 				summary;
-			myModule.licenses.package.push('MIT');
-			summary = myModule.summaryLicenses();
+			myModule.licenseSources.package.sources.push(new PackageSource('MIT'));
+			summary = myModule.summary();
 			summary.should.be.an.array;
 			summary.length.should.be.equal(1);
 			summary[0].should.be.equal('MIT');
@@ -80,9 +92,9 @@ describe('Module', function () {
 		it('when a two different package licenses are added, they appear in the summary alphabetically', function () {
 			var myModule = new Module('my-module', 'my-module', '1.0.0', '/my/dir'),
 				summary;
-			myModule.licenses.package.push('MIT');
-			myModule.licenses.package.push('Apache');
-			summary = myModule.summaryLicenses();
+			myModule.licenseSources.package.sources.push(new PackageSource('MIT'));
+			myModule.licenseSources.package.sources.push(new PackageSource('Apache'));
+			summary = myModule.summary();
 			summary.should.be.an.array;
 			summary.length.should.be.equal(2);
 			summary[0].should.be.equal('Apache');
@@ -90,11 +102,11 @@ describe('Module', function () {
 		});
 
 
-		it('when a single license file license is added, should appear in the summary', function () {
+		it('when a single license file source is added, should appear in the summary', function () {
 			var myModule = new Module('my-module', 'my-module', '1.0.0', '/my/dir'),
 				summary;
-			myModule.licenses.license.push('MIT');
-			summary = myModule.summaryLicenses();
+			myModule.licenseSources.license.sources.push(fakeMitFile);
+			summary = myModule.summary();
 			summary.should.be.an.array;
 			summary.length.should.be.equal(1);
 			summary[0].should.be.equal('MIT');
@@ -104,9 +116,10 @@ describe('Module', function () {
 		it('when a two different license file licenses are added, they appear in the summary alphabetically', function () {
 			var myModule = new Module('my-module', 'my-module', '1.0.0', '/my/dir'),
 				summary;
-			myModule.licenses.license.push('MIT');
-			myModule.licenses.license.push('Apache');
-			summary = myModule.summaryLicenses();
+
+			myModule.licenseSources.license.sources.push(fakeMitFile);
+			myModule.licenseSources.license.sources.push(fakeApacheFile);
+			summary = myModule.summary();
 			summary.should.be.an.array;
 			summary.length.should.be.equal(2);
 			summary[0].should.be.equal('Apache');
@@ -116,8 +129,8 @@ describe('Module', function () {
 		it('when a single readme license is added, should appear in the summary', function () {
 			var myModule = new Module('my-module', 'my-module', '1.0.0', '/my/dir'),
 				summary;
-			myModule.licenses.readme.push('MIT');
-			summary = myModule.summaryLicenses();
+			myModule.licenseSources.readme.sources.push(fakeMitFile);
+			summary = myModule.summary();
 			summary.should.be.an.array;
 			summary.length.should.be.equal(1);
 			summary[0].should.be.equal('MIT');
@@ -127,9 +140,9 @@ describe('Module', function () {
 		it('when a two different readme licenses are added, they appear in the summary alphabetically', function () {
 			var myModule = new Module('my-module', 'my-module', '1.0.0', '/my/dir'),
 				summary;
-			myModule.licenses.readme.push('MIT');
-			myModule.licenses.readme.push('Apache');
-			summary = myModule.summaryLicenses();
+			myModule.licenseSources.readme.sources.push(fakeMitFile);
+			myModule.licenseSources.readme.sources.push(fakeApacheFile);
+			summary = myModule.summary();
 			summary.should.be.an.array;
 			summary.length.should.be.equal(2);
 			summary[0].should.be.equal('Apache');
@@ -139,14 +152,14 @@ describe('Module', function () {
 		it('duplicate licenses from different sources are removed from the summary', function () {
 			var myModule = new Module('my-module', 'my-module', '1.0.0', '/my/dir'),
 				summary;
-			myModule.licenses.package.push('MIT');
-			myModule.licenses.package.push('Apache');
-			myModule.licenses.package.push('GPL');
-			myModule.licenses.license.push('MIT');
-			myModule.licenses.license.push('Apache');
-			myModule.licenses.readme.push('MIT');
-			myModule.licenses.readme.push('Apache');
-			summary = myModule.summaryLicenses();
+			myModule.licenseSources.package.sources.push(new PackageSource('MIT'));
+			myModule.licenseSources.package.sources.push(new PackageSource('Apache'));
+			myModule.licenseSources.package.sources.push(new PackageSource('GPL'));
+			myModule.licenseSources.license.sources.push(fakeMitFile);
+			myModule.licenseSources.license.sources.push(fakeApacheFile);
+			myModule.licenseSources.readme.sources.push(fakeMitFile);
+			myModule.licenseSources.readme.sources.push(fakeApacheFile);
+			summary = myModule.summary();
 			summary.should.be.an.array;
 			summary.length.should.be.equal(3);
 			summary[0].should.be.equal('Apache');
@@ -171,12 +184,12 @@ describe('Module', function () {
 		it('should return the correct string', function () {
 			var myModule = new Module('my-module', 'my-module', '1.0.0', '/my/dir'),
 				summary;
-			myModule.licenses.package.push('MIT');
-			myModule.licenses.package.push('GPL');
-			myModule.licenses.license.push('MIT');
-			myModule.licenses.license.push('Apache');
-			myModule.licenses.readme.push('MIT');
-			myModule.licenses.readme.push('Apache');
+			myModule.licenseSources.package.sources.push(new PackageSource('MIT'));
+			myModule.licenseSources.package.sources.push(new PackageSource('GPL'));
+			myModule.licenseSources.license.sources.push(fakeMitFile);
+			myModule.licenseSources.license.sources.push(fakeApacheFile);
+			myModule.licenseSources.readme.sources.push(fakeMitFile);
+			myModule.licenseSources.readme.sources.push(fakeApacheFile);
 			myModule.toCsvRecord().should.equal('my-module,1.0.0,/my/dir,(none),(none),Apache;GPL;MIT,GPL;MIT,Apache;MIT,Apache;MIT');
 		});
 	});

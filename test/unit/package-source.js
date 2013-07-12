@@ -33,7 +33,7 @@ describe('PackageSource', function () {
 
 		it('should return the license name wrapped in an Array', function () {
 			var source = new PackageSource('MIT'),
-				licenses = source.licenses();
+				licenses = source.names();
 			licenses.should.be.an.array;
 			licenses.length.should.be.equal(1);
 			licenses[0].should.be.equal('MIT');
