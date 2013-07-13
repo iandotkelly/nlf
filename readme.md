@@ -8,23 +8,14 @@ for standard strings in these files, such as MIT, BSD, Apache, GPL etc - this is
 concerns at all about the accuracy of the results, you will need to perform a detailed manual review of the project
 and its dependencies, reading all terms of any included or referenced license.
 
-## Setup
-
-Do this:
-
-```sh
-$ npm install -g nlf
-
-```
-
-### Using
+## Use
 
 nlf can be used programatically, or from the command line.
 
-## Programatically
+### Programatically
 
 ```javascript
-var nlf = require('lib/nlf');
+var nlf = require('nlf');
 
 var results = nlf.find('/User/me/my-project', function (err, data) {
 	// do something with the response object.
@@ -36,26 +27,52 @@ I will document the response object at some point, but it should be fairly strai
 
 Note, if you run nlf programatically having installed it locally, it will find various spurious false positives from its own test data. So exclude the results from the nlf record.
 
-## CLI
+### CLI
+
+To install:
+
+```sh
+$ npm install -g nlf
+
+```
+
+To use:
 
 ```sh
 $ cd my-module
 $ nlf
 ```
 
+### Tests
+
+To run the npm unit tests, install development dependencies and run tests with 'npm test' or 'make'.
+
+If you contribute to the project, tests are written in [mocha](http://visionmedia.github.com/mocha/), using [should.js](https://github.com/visionmedia/should.js/) or the node.js assert module.
+
+
+```sh
+$ cd nlf
+$ npm install
+$ npm test
+```
+
 ## Revision History
+
+### 0.0.3
+
+- Attempt to resolve npm install issues
 
 ### 0.0.2
 
-- Fixed issue with asyncronous recursion over npm data that caused nlf.find() to sometimes not complete.
+- Fixed issue with asyncronous recursion over npm data that caused nlf.find() to sometimes not complete
 
 ### 0.0.1
 
 - First working version.  Command line produces CSV output to standard out
 
-### License
+## License
 
-The MIT License (MIT)
+[The MIT License (MIT)](http://opensource.org/licenses/MIT)
 
 Copyright (c) 2013 Ian Kelly
 
@@ -76,8 +93,4 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
-
-[node.js]: http://nodejs.org
-[mocha]: http://visionmedia.github.com/mocha/
-[(MIT)]: http://opensource.org/licenses/MIT
 
