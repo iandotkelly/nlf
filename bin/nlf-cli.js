@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 /**
  *
  * @description cli for nlf
@@ -18,9 +20,6 @@ var program = require('commander'),
 program
 	.command('nlf')
 	.version(pjson.version)
-	.option('-p, --production',
-		'production dependencies only, ignore any devDependencies in package.json (not implemented)')
-	.option('-c, --csv', 'report in csv format')
 	.parse(process.argv);
 
 nlf.find(process.cwd(), function (err, data) {
@@ -35,7 +34,7 @@ nlf.find(process.cwd(), function (err, data) {
 		console.log(data[0].csvHeading());
 		for (moduleIndex = 0; moduleIndex < data.length; moduleIndex++) {
 			console.log(data[moduleIndex].toCsvRecord());
-		}	
+		}
 	}
 
 });

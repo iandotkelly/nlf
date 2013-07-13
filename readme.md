@@ -56,20 +56,6 @@ $ npm install
 $ npm test
 ```
 
-## Revision History
-
-### 0.0.3
-
-- Attempt to resolve npm install issues
-
-### 0.0.2
-
-- Fixed issue with asyncronous recursion over npm data that caused nlf.find() to sometimes not complete
-
-### 0.0.1
-
-- First working version.  Command line produces CSV output to standard out
-
 ## License
 
 [The MIT License (MIT)](http://opensource.org/licenses/MIT)
