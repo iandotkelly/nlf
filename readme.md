@@ -43,18 +43,23 @@ $ cd my-module
 $ nlf
 ```
 
+To exclude development dependences and only analyze dependencies for production:
+
+```sh
+$ cd my-module
+$ nlf -d
+```
+
 ### Tests
 
 To run the npm unit tests, install development dependencies and run tests with 'npm test' or 'make'.
-
-If you contribute to the project, tests are written in [mocha](http://visionmedia.github.com/mocha/), using [should.js](https://github.com/visionmedia/should.js/) or the node.js assert module.
-
 
 ```sh
 $ cd nlf
 $ npm install
 $ npm test
 ```
+If you contribute to the project, tests are written in [mocha](http://visionmedia.github.com/mocha/), using [should.js](https://github.com/visionmedia/should.js/) or the node.js assert module.
 
 ## License
 
