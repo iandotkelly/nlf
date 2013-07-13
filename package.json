@@ -3,7 +3,7 @@
   "title": "Node License Finder",
   "description": "Find licenses for a node application and its node_module dependencies",
   "author": "Ian Kelly <iandotkelly@gmail.com>",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "license": "MIT",
   "bin" : { 
     "nlf" : "./bin/nlf-cli.js"
