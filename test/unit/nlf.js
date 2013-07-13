@@ -16,7 +16,7 @@ describe('nlf', function () {
 
       this.timeout(50000);
       
-      nlf.find(path.join(__dirname, '../..'), function (err, data) {
+      nlf.find({ directory: path.join(__dirname, '../..') }, function (err, data) {
         if (err) {
           return done(err);
         }

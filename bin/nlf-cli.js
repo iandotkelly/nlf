@@ -15,14 +15,19 @@
 
 var program = require('commander'),
 	pjson = require('../package.json'),
-	nlf = require('../lib/nlf');
+	nlf = require('../lib/nlf'),
+	options = {
+		directory: process.cwd()
+	};
 
 program
-	.command('nlf')
 	.version(pjson.version)
+	.option('-d, --no-dev', 'exclude development dependencies')
 	.parse(process.argv);
 
-nlf.find(process.cwd(), function (err, data) {
+options.production = !program.dev;
+
+nlf.find(options, function (err, data) {
 
 	if (err) {
 		console.error(err);
