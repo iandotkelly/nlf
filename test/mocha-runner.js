@@ -12,7 +12,7 @@ function test(f) {
 	patterns.push(path.join(__dirname, f));
 }
 
-test('unit/*.js');
+test('unit/**/*.js');
 
 globs(patterns, function (err, files) {
 	if (err) {
