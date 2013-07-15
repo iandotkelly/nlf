@@ -16,6 +16,7 @@
 var program = require('commander'),
 	pjson = require('../package.json'),
 	nlf = require('../lib/nlf'),
+	standardFormat = require('../lib/formatters/standard'),
 	options = {
 		directory: process.cwd()
 	};
@@ -35,11 +36,13 @@ nlf.find(options, function (err, data) {
 	}
 
 	if (data && data.length > 0) {
-		var moduleIndex;
-		console.log(data[0].csvHeading());
-		for (moduleIndex = 0; moduleIndex < data.length; moduleIndex++) {
-			console.log(data[moduleIndex].toCsvRecord());
-		}
+		standardFormat.render(data, function (err, output) {
+			if (err) {
+				console.error(err);
+				process.exit(1);
+			}
+			console.log(output);
+		});
 	}
 
 });

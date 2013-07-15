@@ -12,21 +12,6 @@ and its dependencies, reading all terms of any included or referenced license.
 
 nlf can be used programatically, or from the command line.
 
-### Programatically
-
-```javascript
-var nlf = require('nlf');
-
-var results = nlf.find('/User/me/my-project', function (err, data) {
-	// do something with the response object.
-	console.log(JSON.stringify(data));
-});
-```
-
-I will document the response object at some point, but it should be fairly straight forward.
-
-Note, if you run nlf programatically having installed it locally, it will find various spurious false positives from its own test data. So exclude the results from the nlf record.
-
 ### CLI
 
 To install:
@@ -43,12 +28,53 @@ $ cd my-module
 $ nlf
 ```
 
+Example output:
+<pre>
+commander@0.6.1 [license(s): MIT]
+└── readme files: MIT
+
+read-installed@0.2.2 [license(s): BSD]
+└── license files: BSD
+
+glob@3.2.3 [license(s): BSD]
+├── package.json:  BSD
+└── license files: BSD
+
+archy@0.0.2 [license(s): MIT/X11]
+└── package.json:  MIT/X11
+
+json-stringify-safe@5.0.0 [license(s): BSD]
+├── package.json:  BSD
+└── license files: BSD
+
+should@1.2.2 [license(s): MIT]
+└── readme files: MIT
+</pre>
+
+
 To exclude development dependences and only analyze dependencies for production:
 
 ```sh
 $ cd my-module
 $ nlf -d
 ```
+
+
+### Programatically
+
+```javascript
+var nlf = require('nlf');
+
+var results = nlf.find('/User/me/my-project', function (err, data) {
+	// do something with the response object.
+	console.log(JSON.stringify(data));
+});
+```
+
+I will document the response object at some point, but it should be fairly straight forward.
+
+Note, if you run nlf programatically having installed it locally, it will find various spurious false positives from its own test data. So exclude the results from the nlf record.
+
 
 ### Tests
 
