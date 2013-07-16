@@ -169,29 +169,4 @@ describe('Module', function () {
 
 	});
 
-	describe('csvHeading method', function () {
-
-		it('should return the correct string', function () {
-			var myModule = new Module('my-module', 'my-module', '1.0.0', '/my/dir');
-			myModule.csvHeading().should.equal('name,version,directory,repository,type,summary,from package.json,from license,from readme');
-		});
-
-	});
-
-
-	describe('toCsvRecord method', function () {
-
-		it('should return the correct string', function () {
-			var myModule = new Module('my-module', 'my-module', '1.0.0', '/my/dir'),
-				summary;
-			myModule.licenseSources.package.sources.push(new PackageSource('MIT'));
-			myModule.licenseSources.package.sources.push(new PackageSource('GPL'));
-			myModule.licenseSources.license.sources.push(fakeMitFile);
-			myModule.licenseSources.license.sources.push(fakeApacheFile);
-			myModule.licenseSources.readme.sources.push(fakeMitFile);
-			myModule.licenseSources.readme.sources.push(fakeApacheFile);
-			myModule.toCsvRecord().should.equal('my-module,1.0.0,/my/dir,(none),(none),Apache;GPL;MIT,GPL;MIT,Apache;MIT,Apache;MIT');
-		});
-	});
-
 });
