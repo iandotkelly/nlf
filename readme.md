@@ -51,6 +51,12 @@ should@1.2.2 [license(s): MIT]
 └── readme files: MIT
 </pre>
 
+For output in CSV format use the -c (or --csv) switch:
+
+```sh
+$ cd my-module
+$ nlf -c
+```
 
 To exclude development dependences and only analyze dependencies for production:
 
@@ -58,7 +64,6 @@ To exclude development dependences and only analyze dependencies for production:
 $ cd my-module
 $ nlf -d
 ```
-
 
 ### Programatically
 
