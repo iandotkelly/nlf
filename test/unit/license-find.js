@@ -1,5 +1,7 @@
 /**
  * @description Unit tests for the license-find.js module
+ *
+ * @@NLF-IGNORE@@
  */
 
 'use strict';
