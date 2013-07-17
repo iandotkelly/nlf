@@ -1,6 +1,6 @@
 <!-- @@NLF-IGNORE@@ -->
 
-# Node License Finder (nlf)
+# Node License Finder (nlf) [![Build Status](https://secure.travis-ci.org/iandotkelly/nlf.png)](http://travis-ci.org/iandotkelly/nlf)
 
 nlf is a utility for attempting to identify the licenses of modules in a node.js project.
 
