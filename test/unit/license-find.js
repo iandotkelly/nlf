@@ -86,10 +86,22 @@ describe('license-find', function () {
 
 	});
 
+
+	describe('with Apache License text at the start of the file', function () {
+
+		it('should return Apache', function () {
+			var output = licenseFind('Apache\nLicense blah');
+			output.length.should.be.equal(1);
+			output[0].should.be.equal('Apache');
+		});
+
+	});
+
 	describe('with DO WHAT THE FUCK YOU WANT TO PUBLIC LICENCE text', function () {
 
 		it('should return WTFPL', function () {
-			var output = licenseFind('blah DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE blah');
+			var output =
+				licenseFind('blah DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE blah');
 			output.length.should.be.equal(1);
 			output[0].should.be.equal('WTFPL');
 		});
@@ -100,7 +112,8 @@ describe('license-find', function () {
 	describe('with DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE text', function () {
 
 		it('should return WTFPL', function () {
-			var output = licenseFind('blah DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE blah');
+			var output =
+				licenseFind('blah DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE blah');
 			output.length.should.be.equal(1);
 			output[0].should.be.equal('WTFPL');
 		});
