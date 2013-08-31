@@ -6,14 +6,16 @@
 
 'use strict';
 
-var licenseFind = require('../../lib/license-find'),
-	should = require('should');
+var licenseFind = require('../../lib/license-find');
+
+require('should');
 
 describe('license-find', function () {
-
+	/* jshint maxstatements:20 */
+	
 	it('should be a function', function () {
 		licenseFind.should.be.a.function;
-	})
+	});
 
 	describe('with GPL text', function () {
 

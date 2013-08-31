@@ -9,14 +9,15 @@
 'use strict';
 
 var LicenseCollection = require('../../lib/license-collection'),
-	PackageSource = require('../../lib/package-source'),
-	should = require('should');
+	PackageSource = require('../../lib/package-source');
+
+require('should');
 
 describe('license-collection', function () {
 
 	it('should be a function', function () {
 		LicenseCollection.should.be.a.function;
-	})
+	});
 
 	describe('the constructor', function () {
 
@@ -30,7 +31,7 @@ describe('license-collection', function () {
 
 	describe('the summary function', function () {
 
-		describe('of an initialized object', function() {
+		describe('of an initialized object', function () {
 
 			it('should return an empty array', function () {
 
@@ -44,7 +45,7 @@ describe('license-collection', function () {
 
 		});
 
-		describe('when a source has been added', function() {
+		describe('when a source has been added', function () {
 			
 			it('should return license names', function () {
 

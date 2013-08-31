@@ -1,3 +1,5 @@
+/* jshint -W068, -W031 */
+
 /**
  * @description Unit tests for the file-source.js module
  */
@@ -5,10 +7,11 @@
 'use strict';
 
 var FileSource = require('../..').FileSource,
-	should = require('should'),
 	path = require('path'),
 	fs = require('fs'),
 	mitFile = fs.readFileSync(path.join(__dirname, '../fixtures/MIT'), 'utf-8');
+
+require('should');
 
 describe('FileSource', function () {
 
@@ -19,12 +22,13 @@ describe('FileSource', function () {
 		});
 
 		it('which throws exception with no path', function () {
-			(function() {
-				var source = new FileSource();
+			(function () {
+				new FileSource();
 			}).should.throw();
 		});
 
-		it('which should create an initialized object with a path parameter', function () {
+		it('which should create an initialized object with a path parameter',
+			function () {
 			var source = new FileSource('/dir/filename');
 			source.filePath.should.be.equal('/dir/filename');
 			source.text.should.be.equal('');
@@ -37,10 +41,10 @@ describe('FileSource', function () {
 
 		var source;
 
-		beforeEach(function(done){
+		beforeEach(function (done) {
 			source = new FileSource(path.join(__dirname, '../fixtures/MIT'));
 			source.read(done);
-	  	});
+		});
 
 		it('should contain the MIT text', function () {
 			source.text.should.not.be.equal('');
@@ -51,7 +55,7 @@ describe('FileSource', function () {
 			var licenses = source.names();
 			licenses.length.should.be.equal(1);
 			licenses[0].should.be.equal('MIT');
-		})
+		});
 	});
 
 });

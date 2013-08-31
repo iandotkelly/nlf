@@ -1,11 +1,14 @@
+/* jshint -W031, -W068 */
+
 /**
  * @description Unit tests for the package-source.js module
  */
 
 'use strict';
 
-var PackageSource = require('../..').PackageSource,
-	should = require('should');
+var PackageSource = require('../..').PackageSource;
+
+require('should');
 
 describe('PackageSource', function () {
 
@@ -16,17 +19,30 @@ describe('PackageSource', function () {
 		});
 
 		it('which throws exception with no argument', function () {
-			(function() {
-				var source = new PackageSource();
+			(function () {
+				new PackageSource();
 			}).should.throw();
 		});
 
-		it('which should create an initialized object with a string parameter', function () {
+		it('which should create an initialized object with a string parameter',
+			function () {
 			var source = new PackageSource('MIT');
 			source.license.should.be.equal('MIT');
 			source.url.should.be.equal('(none)');
 		});
 
+
+		it('and should create an initialized object with an object parameter',
+			function () {
+			var licenseObject, source;
+			licenseObject = {
+				type: 'MIT',
+				url: 'http://opensource.org/licenses/MIT'
+			},
+			source = new PackageSource(licenseObject);
+			source.license.should.be.equal('MIT');
+			source.url.should.be.equal('http://opensource.org/licenses/MIT');
+		});
 	});
 
 	describe('licenses method', function () {
