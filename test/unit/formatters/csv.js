@@ -4,27 +4,30 @@
 
 'use strict';
 
-var csvFormat= require('../../../lib/formatters/csv.js'),
-	should = require('should'),
-	Module = require('../../../lib/module.js'),
-	PackageSource = require('../../../lib/package-source'),
-	FileSource = require('../../../lib/file-source'),
+var csvFormat = require('../../..').csvFormatter,
+	Module = require('../../..').Module,
+	PackageSource = require('../../..').PackageSource,
+	FileSource = require('../../..').FileSource,
 	input = [],
 	mod,
 	path = require('path'),
 	expected;
 
+require('should'),
+
 // input module
 mod = new Module('test@1.0.0', 'test', '1.0.0', '/dir/test');
 mod.licenseSources.package.sources.push(new PackageSource('Apache'));
-mod.licenseSources.license.sources.push(new FileSource(path.join(__dirname, '../../fixtures/MIT')));
+mod.licenseSources.license.sources.push(
+	new FileSource(path.join(__dirname, '../../fixtures/MIT')));
 input.push(mod);
 
 // expected reponse
-expected = 'name,version,directory,repository,summary,from package.json,from license,from readme\n'
-      + 'test,1.0.0,/dir/test,(none),Apache;MIT,Apache,MIT,';
+expected = 'name,version,directory,repository,summary,from package.json,'
+	+ 'from license,from readme\n'
+	+ 'test,1.0.0,/dir/test,(none),Apache;MIT,Apache,MIT,';
 
-describe('standard formatter', function () {
+describe('csv formatter', function () {
 
 	describe('render method', function () {
 
@@ -36,7 +39,6 @@ describe('standard formatter', function () {
 				}
 
 				csvFormat.render(input, function (err, output) {
-
 
 					if (err)
 					{

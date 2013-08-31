@@ -15,7 +15,9 @@ lint:
 	./node_modules/.bin/jshint \
 		--verbose \
 		index.js \
+		test/unit/formatters/*.js \
+		test/unit/*.js \
 		lib/*.js \
-		test/**/*.js
+		lib/formatters/*.js 
 
 .PHONY: all test test-cov
