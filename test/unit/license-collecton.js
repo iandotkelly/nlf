@@ -1,4 +1,4 @@
-
+/* jshint -W068 */
 
 /**
  * @description Unit tests for the license-find.js module
@@ -8,8 +8,8 @@
 
 'use strict';
 
-var LicenseCollection = require('../../lib/license-collection'),
-	PackageSource = require('../../lib/package-source');
+var LicenseCollection = require('../..').LicenseCollection,
+	PackageSource = require('../..').PackageSource;
 
 require('should');
 
@@ -25,6 +25,34 @@ describe('license-collection', function () {
 			var col = new LicenseCollection();
 			col.sources.should.be.an.array;
 			col.sources.length.should.be.equal(0);
+		});
+
+	});
+
+	describe('the add method', function () {
+
+		it('should throw if the type is not an object', function () {
+
+			(function () {
+				var col = new LicenseCollection();
+				col.add();
+			}).should.throw();
+
+			(function () {
+				var col = new LicenseCollection();
+				col.add('cats');
+			}).should.throw();
+
+		});
+
+		it('should add an object', function () {
+
+			var col = new LicenseCollection();
+
+			col.sources.length.should.be.equal(0);
+			col.add({ hello: 'cats'});
+			col.sources.length.should.be.equal(1);
+			col.sources[0].hello.should.be.equal('cats');
 		});
 
 	});
@@ -53,7 +81,7 @@ describe('license-collection', function () {
 					licenseSource = new PackageSource('MIT'),
 					summary;
 
-				col.sources.push(licenseSource);
+				col.add(licenseSource);
 
 				summary = col.summary();
 

@@ -58,4 +58,16 @@ describe('FileSource', function () {
 		});
 	});
 
+	describe('read() with a bad filename', function () {
+
+		it('will return an error', function (done) {
+			var source = new FileSource(path.join(__dirname, '../fixtures/CATS'));
+			source.read(function (err) {
+				err.should.be.an.object;
+				done();
+			});
+		});
+
+	});
+
 });
