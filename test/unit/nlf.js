@@ -31,6 +31,26 @@ describe('nlf', function () {
 		});
 
 		// simple 'does it return in a timely manner'
+		it('should work with production only', function (done) {
+
+			this.timeout(50000);
+			
+			nlf.find(
+				{
+					directory: path.join(__dirname, '../..'),
+					production: true
+				},
+				function (err) {
+
+					if (err) {
+						return done(err);
+					}
+
+					done();
+				});
+		});
+
+		// simple 'does it return in a timely manner'
 		it('should not work in a non node directory', function (done) {
 
 			this.timeout(50000);
