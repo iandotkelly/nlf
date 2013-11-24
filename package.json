@@ -14,15 +14,15 @@
     "url": "git://github.com/iandotkelly/nlf.git"
   },
   "dependencies": {
-    "commander": "~2.0.0",
+    "commander": "~2.1.0",
     "read-installed": "~0.2.4",
     "glob": "~3.2.6",
     "archy": "~0.0.2"
   },
   "devDependencies": {
     "jshint": "~2.3.0",
-    "should": "~2.0.2",
-    "mocha": "~1.13.0",
+    "should": "~2.1.0",
+    "mocha": "~1.14.0",
     "globs": "~0.1.1"
   },
   "engines": {
