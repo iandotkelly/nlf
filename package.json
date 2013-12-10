@@ -5,8 +5,8 @@
   "author": "Ian Kelly <iandotkelly@gmail.com>",
   "version": "0.2.6",
   "license": "MIT",
-  "bin" : { 
-    "nlf" : "./bin/nlf-cli.js"
+  "bin": {
+    "nlf": "./bin/nlf-cli.js"
   },
   "homepage": "https://github.com/iandotkelly/nlf",
   "repository": {
@@ -22,7 +22,7 @@
   "devDependencies": {
     "jshint": "~2.3.0",
     "should": "~2.1.0",
-    "mocha": "~1.14.0",
+    "mocha": "~1.15.1",
     "globs": "~0.1.1"
   },
   "engines": {
