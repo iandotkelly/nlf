@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "commander": "~2.1.0",
-    "read-installed": "~2.0.0",
+    "read-installed": "~1.0.1",
     "glob": "~3.2.9",
     "archy": "~0.0.2"
   },
