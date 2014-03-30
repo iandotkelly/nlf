@@ -6,7 +6,7 @@ nlf is a utility for attempting to identify the licenses of modules in a node.js
 
 It looks for license information in package.json, readme and license files in the project.  Please note, in many cases
 the utility is looking
-for standard strings in these files, such as MIT, BSD, Apache, GPL etc - this is not error free, so if you have any 
+for standard strings in these files, such as MIT, BSD, Apache, GPL etc - this is not error free, so if you have any
 concerns at all about the accuracy of the results, you will need to perform a detailed manual review of the project
 and its dependencies, reading all terms of any included or referenced license.
 
@@ -72,16 +72,60 @@ $ nlf -d
 ```javascript
 var nlf = require('nlf');
 
-var results = nlf.find('/User/me/my-project', function (err, data) {
+nlf.find({ directory: '/User/me/my-project' }, function (err, data) {
 	// do something with the response object.
 	console.log(JSON.stringify(data));
 });
+
+// to only include production dependencies
+nlf.find({
+	directory: '/User/me/my-project',
+	production: true
+}, function (err, data) {
+	// do something with the response object.
+	console.log(JSON.stringify(data));
+});
+
 ```
 
-I will document the response object at some point, but it should be fairly straight forward.
+The data returned from find() is an array of modules, each of which is represented by an object as the following example:
 
-Note, if you run nlf programatically having installed it locally, it will find various spurious false positives from its own test data. So exclude the results from the nlf record.
-
+```
+  {
+    "id": "example@0.2.9",
+    "name": "nlf",
+    "version": "0.2.9",
+    "repository": "http:\/\/github.com\/iandotkelly\/example",
+    "directory": "\/Users\/ian\/example",
+    "type": "(none)",
+    "licenseSources": {
+      "package": {
+        "sources": [
+          {
+            "license": "MIT",
+            "url": "http://opensource.org/MIT"
+          }
+        ]
+      },
+      "license": {
+        "sources": [
+          {
+            "filePath": "\/Users\/ian\/Personal\/example\/LICENSE",
+            "text": "the text of the license file"
+          }
+        ]
+      },
+      "readme": {
+        "sources": [
+          {
+            "filePath": "\/Users\/ian\/Personal\/example\/readme.md",
+            "text": "text of the readme"
+          }
+        ]
+      }
+    }
+  }
+```
 
 ### Tests
 
