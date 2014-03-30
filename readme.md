@@ -92,39 +92,39 @@ The data returned from find() is an array of modules, each of which is represent
 
 ```
 {
-"id": "example@0.2.9",
-"name": "example",
-"version": "0.2.9",
-"repository": "http:\/\/github.com\/iandotkelly\/example",
-"directory": "\/Users\/ian\/example",
-"licenseSources": {
-  "package": {
-    "sources": [
-      {
-        "license": "MIT",
-        "url": "http://opensource.org/MIT"
-      }
-    ]
-  },
-  "license": {
-    "sources": [
-      {
-        "filePath": "\/Users\/ian\/Personal\/example\/LICENSE",
-        "text": "the text of the license file",
-        "name": function() { // function that returns the name of the license if known }
-      }
-    ]
-  },
-  "readme": {
-    "sources": [
-      {
-        "filePath": "\/Users\/ian\/Personal\/example\/readme.md",
-        "text": "text of the readme"
-        "name": function() { // function that returns the name of the license if known }
-      }
-    ]
+  "id": "example@0.2.9",
+  "name": "example",
+  "version": "0.2.9",
+  "repository": "http:\/\/github.com\/iandotkelly\/example",
+  "directory": "\/Users\/ian\/example",
+  "licenseSources": {
+    "package": {
+      "sources": [
+        {
+          "license": "MIT",
+          "url": "http://opensource.org/MIT"
+        }
+      ]
+    },
+    "license": {
+      "sources": [
+        {
+          "filePath": "\/Users\/ian\/Personal\/example\/LICENSE",
+          "text": "the text of the license file",
+          "name": function() { // function that returns the name of the license if known }
+        }
+      ]
+    },
+    "readme": {
+      "sources": [
+        {
+          "filePath": "\/Users\/ian\/Personal\/example\/readme.md",
+          "text": "text of the readme"
+          "name": function() { // function that returns the name of the license if known }
+        }
+      ]
+    }
   }
-}
 }
 ```
 
