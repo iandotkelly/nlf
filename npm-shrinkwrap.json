@@ -1,0 +1,85 @@
+{
+  "name": "nlf",
+  "version": "0.2.10",
+  "dependencies": {
+    "archy": {
+      "version": "0.0.2",
+      "from": "archy@0.0.2"
+    },
+    "commander": {
+      "version": "2.2.0",
+      "from": "commander@2.2",
+      "resolved": "https://registry.npmjs.org/commander/-/commander-2.2.0.tgz"
+    },
+    "glob": {
+      "version": "3.2.9",
+      "from": "glob@3.2.9",
+      "dependencies": {
+        "minimatch": {
+          "version": "0.2.14",
+          "from": "minimatch@0.2.14",
+          "dependencies": {
+            "lru-cache": {
+              "version": "2.5.0",
+              "from": "lru-cache@2.5.0"
+            },
+            "sigmund": {
+              "version": "1.0.0",
+              "from": "sigmund@1.0.0"
+            }
+          }
+        },
+        "inherits": {
+          "version": "2.0.1",
+          "from": "inherits@2.0.1"
+        }
+      }
+    },
+    "read-installed": {
+      "version": "2.0.2",
+      "from": "read-installed@2.0.2",
+      "dependencies": {
+        "read-package-json": {
+          "version": "1.1.8",
+          "from": "read-package-json@1.1.8",
+          "dependencies": {
+            "lru-cache": {
+              "version": "2.5.0",
+              "from": "lru-cache@2.5.0"
+            },
+            "normalize-package-data": {
+              "version": "0.2.12",
+              "from": "normalize-package-data@0.2.12",
+              "dependencies": {
+                "github-url-from-git": {
+                  "version": "1.1.1",
+                  "from": "github-url-from-git@1.1.1"
+                },
+                "github-url-from-username-repo": {
+                  "version": "0.0.2",
+                  "from": "github-url-from-username-repo@0.0.2"
+                }
+              }
+            }
+          }
+        },
+        "semver": {
+          "version": "2.2.1",
+          "from": "semver@2.2.1"
+        },
+        "slide": {
+          "version": "1.1.5",
+          "from": "slide@1.1.5"
+        },
+        "util-extend": {
+          "version": "1.0.1",
+          "from": "util-extend@1.0.1"
+        },
+        "graceful-fs": {
+          "version": "2.0.3",
+          "from": "graceful-fs@2.0.3"
+        }
+      }
+    }
+  }
+}
