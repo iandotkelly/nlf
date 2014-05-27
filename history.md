@@ -1,9 +1,18 @@
 
+1.0.0
+=================
+
+Potentially breaking change, only node 0.10 and above supported.
+
+* Updated glob to version 4.0.0
+* Shrinkwrap file now no-longer tailored to work on node 0.8
+
+
 0.2.11
 =================
 
 This will be the last version supporting node.js 0.8.x. Changes to dependencies are making
-support of 0.8.x difficult, requiring manual editing of shrinkwrap files.
+support of 0.8 difficult, requiring manual editing of shrinkwrap files.
 
  * Bump dependencies, including read-installed to 2.0.4 & glob to 3.2.11
 

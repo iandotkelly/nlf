@@ -1,6 +1,6 @@
 {
   "name": "nlf",
-  "version": "0.2.11",
+  "version": "1.0.0",
   "dependencies": {
     "archy": {
       "version": "0.0.2",
