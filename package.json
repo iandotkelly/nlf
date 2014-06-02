@@ -16,14 +16,14 @@
   "dependencies": {
     "archy": "^0.0.2",
     "commander": "^2.2.0",
-    "glob": "^4.0.0",
+    "glob": "^4.0.2",
     "read-installed": "^2.0.4"
   },
   "devDependencies": {
     "globs": "~0.1.1",
     "jshint": "~2.5.1",
-    "mocha": "~1.19.0",
-    "should": "~3.3.2"
+    "mocha": "^1.20.0",
+    "should": "^4.0.0"
   },
   "engines": {
     "node": ">=0.10"
