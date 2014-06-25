@@ -1,4 +1,10 @@
 
+1.0.1
+=================
+
+* Remove shrinkwrap entirely, as it was making unnecessarily go out of date
+* Bump dependencies
+
 1.0.0
 =================
 
