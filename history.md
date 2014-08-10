@@ -1,4 +1,10 @@
 
+1.0.2
+=================
+
+* Update read-installed dependency, which now supports semver@3
+* Bump other dependencies
+
 1.0.1
 =================
 
