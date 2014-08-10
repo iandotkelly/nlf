@@ -15,14 +15,14 @@
   },
   "dependencies": {
     "archy": "^0.0.2",
-    "commander": "^2.2.0",
+    "commander": "^2.3.0",
     "glob": "^4.0.2",
-    "read-installed": "^2.0.5"
+    "read-installed": "^3.0.0"
   },
   "devDependencies": {
     "globs": "^0.1.2",
     "jshint": "~2.5.1",
-    "mocha": "^1.20.1",
+    "mocha": "^1.21.4",
     "should": "^4.0.4"
   },
   "engines": {
