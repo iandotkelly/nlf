@@ -16,9 +16,9 @@ nlf can be used programmatically, or from the command line.
 
 ## Options
 
-`directory` (String) - where to look
-`production` (Boolean) (Default:false) - only traverse dependencies, no dev-dependencies
-`depth` (Number) (Default: Infinity) - how deep to traverse packages where 0 is the current package.json only
+- `directory` (String) - where to look
+- `production` (Boolean) (Default:false) - only traverse dependencies, no dev-dependencies
+- `depth` (Number) (Default: Infinity) - how deep to traverse packages where 0 is the current package.json only
 
 
 ### CLI
