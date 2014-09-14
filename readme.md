@@ -12,7 +12,14 @@ and its dependencies, reading all terms of any included or referenced license.
 
 ## Use
 
-nlf can be used programatically, or from the command line.
+nlf can be used programmatically, or from the command line.
+
+## Options
+
+- `directory` (String) - where to look
+- `production` (Boolean) (Default:false) - only traverse dependencies, no dev-dependencies
+- `depth` (Number) (Default: Infinity) - how deep to traverse packages where 0 is the current package.json only
+
 
 ### CLI
 
@@ -60,14 +67,14 @@ $ cd my-module
 $ nlf -c
 ```
 
-To exclude development dependences and only analyze dependencies for production:
+To exclude development dependencies and only analyze dependencies for production:
 
 ```sh
 $ cd my-module
 $ nlf -d
 ```
 
-### Programatically
+### Programmatically
 
 ```javascript
 var nlf = require('nlf');

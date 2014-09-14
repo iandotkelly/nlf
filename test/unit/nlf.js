@@ -113,6 +113,60 @@ describe('nlf', function () {
 
 		});
 
-	});
+    //parse only current package.json deps., don't traverse inward
+    it('should parse with a depth of 0', function (done) {
+
+      this.timeout(50000);
+
+      nlf.find(
+        {
+          directory: path.join(__dirname, '../..'),
+          production: true,
+          depth : 0
+        },
+        function (err, results) {
+          /*jshint unused:false */
+          results.length.should.eql(5);
+          done();
+        });
+
+    });
+
+    //parse only current package.json deps., don't traverse inward
+    it('should parse with a depth of 0 including dev deps.', function (done) {
+
+      this.timeout(50000);
+
+      nlf.find(
+        {
+          directory: path.join(__dirname, '../..'),
+          depth : 0
+        },
+        function (err, results) {
+          /*jshint unused:false */
+          results.length.should.eql(8);
+          done();
+        });
+
+    });
+
+    //parse only current package.json deps., don't traverse inward
+    it('should parse with a depth of Infinity', function (done) {
+
+      this.timeout(50000);
+
+      nlf.find(
+        {
+          directory: path.join(__dirname, '../..'),
+          production: true
+        },
+        function (err, results) {
+          /*jshint unused:false */
+          results.length.should.eql(22);
+          done();
+        });
+
+    });
+  });
 });
 

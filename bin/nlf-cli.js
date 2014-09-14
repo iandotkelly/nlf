@@ -25,9 +25,11 @@ program
 	.version(pjson.version)
 	.option('-d, --no-dev', 'exclude development dependencies')
 	.option('-c, --csv', 'output in csv format')
+  .option('-r, --reach [num]', 'package depth (reach)', parseInt, Infinity)
 	.parse(process.argv);
 
 options.production = !program.dev;
+options.depth = program.reach;
 
 // select which formatter
 if (program.csv) {
