@@ -14,7 +14,7 @@
     "url": "git://github.com/iandotkelly/nlf.git"
   },
   "dependencies": {
-    "archy": "^0.0.2",
+    "archy": "0.0.2",
     "commander": "^2.3.0",
     "glob": "^4.0.2",
     "read-installed": "^3.0.0"
