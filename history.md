@@ -1,4 +1,10 @@
 
+1.1.0
+=================
+
+* Adds maximum depth feature
+* Bump dependencies (archy@1.0.0)
+
 1.0.2
 =================
 
