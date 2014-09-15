@@ -8,7 +8,7 @@
  * @copyright Copyright (C) Ian Kelly
  *
  * @license http://opensource.org/licenses/MIT The MIT License
- * 
+ *
  */
 
 'use strict';
@@ -25,7 +25,7 @@ program
 	.version(pjson.version)
 	.option('-d, --no-dev', 'exclude development dependencies')
 	.option('-c, --csv', 'output in csv format')
-  .option('-r, --reach [num]', 'package depth (reach)', parseInt, Infinity)
+	.option('-r, --reach [num]', 'package depth (reach)', parseInt, Infinity)
 	.parse(process.argv);
 
 options.production = !program.dev;
@@ -56,4 +56,3 @@ nlf.find(options, function (err, data) {
 	}
 
 });
-
