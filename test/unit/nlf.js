@@ -15,7 +15,7 @@ describe('nlf', function () {
 		it('should work', function (done) {
 
 			this.timeout(50000);
-			
+
 			nlf.find(
 				{
 					directory: path.join(__dirname, '../..')
@@ -34,7 +34,7 @@ describe('nlf', function () {
 		it('should work with production only', function (done) {
 
 			this.timeout(50000);
-			
+
 			nlf.find(
 				{
 					directory: path.join(__dirname, '../..'),
@@ -54,7 +54,7 @@ describe('nlf', function () {
 		it('should not work in a non node directory', function (done) {
 
 			this.timeout(50000);
-			
+
 			nlf.find(
 				{
 					directory: '/'
@@ -70,7 +70,7 @@ describe('nlf', function () {
 		it('should work even with no options', function (done) {
 
 			this.timeout(50000);
-			
+
 			nlf.find(
 				function (err) {
 
@@ -85,7 +85,7 @@ describe('nlf', function () {
 		it('requires options.production to be a boolean', function (done) {
 
 			this.timeout(50000);
-			
+
 			nlf.find(
 				{
 					directory: path.join(__dirname, '../..'),
@@ -101,7 +101,7 @@ describe('nlf', function () {
 		it('requires options.directory to be a string', function (done) {
 
 			this.timeout(50000);
-			
+
 			nlf.find(
 				{
 					directory: 1
@@ -113,60 +113,59 @@ describe('nlf', function () {
 
 		});
 
-    //parse only current package.json deps., don't traverse inward
-    it('should parse with a depth of 0', function (done) {
+		//parse only current package.json deps., don't traverse inward
+		it('should parse with a depth of 0', function (done) {
 
-      this.timeout(50000);
+			this.timeout(50000);
 
-      nlf.find(
-        {
-          directory: path.join(__dirname, '../..'),
-          production: true,
-          depth : 0
-        },
-        function (err, results) {
-          /*jshint unused:false */
-          results.length.should.eql(5);
-          done();
-        });
+			nlf.find(
+				{
+					directory: path.join(__dirname, '../..'),
+					production: true,
+					depth : 0
+				},
+				function (err, results) {
+					/*jshint unused:false */
+					results.length.should.eql(5);
+					done();
+				});
 
-    });
+		});
 
-    //parse only current package.json deps., don't traverse inward
-    it('should parse with a depth of 0 including dev deps.', function (done) {
+		//parse only current package.json deps., don't traverse inward
+		it('should parse with a depth of 0 including dev deps.', function (done) {
 
-      this.timeout(50000);
+			this.timeout(50000);
 
-      nlf.find(
-        {
-          directory: path.join(__dirname, '../..'),
-          depth : 0
-        },
-        function (err, results) {
-          /*jshint unused:false */
-          results.length.should.eql(8);
-          done();
-        });
+			nlf.find(
+				{
+					directory: path.join(__dirname, '../..'),
+					depth : 0
+				},
+				function (err, results) {
+					/*jshint unused:false */
+					results.length.should.eql(8);
+					done();
+				});
 
-    });
+		});
 
-    //parse only current package.json deps., don't traverse inward
-    it('should parse with a depth of Infinity', function (done) {
+		//parse only current package.json deps., don't traverse inward
+		it('should parse with a depth of Infinity', function (done) {
 
-      this.timeout(50000);
+			this.timeout(50000);
 
-      nlf.find(
-        {
-          directory: path.join(__dirname, '../..'),
-          production: true
-        },
-        function (err, results) {
-          /*jshint unused:false */
-          results.length.should.eql(22);
-          done();
-        });
+			nlf.find(
+				{
+					directory: path.join(__dirname, '../..'),
+					production: true
+				},
+				function (err, results) {
+					/*jshint unused:false */
+					results.length.should.eql(23);
+					done();
+				});
 
-    });
-  });
+		});
+	});
 });
-
