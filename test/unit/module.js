@@ -54,6 +54,19 @@ describe('Module', function () {
 			myModule.type.should.be.equal('development');
 		});
 
+		describe('when given options', function () {
+			it('should set the options', function () {
+				var myModule = new Module('my-module@1.0.0',
+					'my-module',
+					'1.0.0',
+					'/my/dir',
+					'https://myhost/myrepo',
+					'development',
+					{editDistance: true});
+				myModule.options.should.eql({editDistance: true});
+			});
+		});
+
 		it('with no name should throw an exception', function () {
 			(function () {
 				new Module(undefined, undefined, undefined, '/my/dir');

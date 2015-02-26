@@ -12,6 +12,7 @@ require('should');
 
 describe('license-find', function () {
 	/* jshint maxstatements:20 */
+  /* jshint -W101 */
 
 	it('should be a function', function () {
 		licenseFind.should.be.a.function;
@@ -241,6 +242,101 @@ describe('license-find', function () {
 			output[0].should.be.equal('GPL');
 			output[1].should.be.equal('MIT');
 		});
+	});
 
+
+	describe('when given license text not containing a license title', function () {
+		describe('when text corresponds to a popular license', function () {
+			var bsdLicenseText =
+					'Copyright (c) 2015, Joe Schmoe\nAll rights reserved.\n\nRedistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:\n\n1) Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.\n\n2) Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.\n\nTHIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.';
+
+
+			describe('when options is null', function () {
+				it('should not recognize the license', function () {
+					var output = licenseFind(bsdLicenseText);
+					output.should.be.empty;
+				});
+			});
+
+			describe('when options.editDistance is false', function () {
+				it('should not recognize the license', function () {
+					var output = licenseFind(bsdLicenseText, {editDistance: false});
+					output.should.be.empty;
+				});
+			});
+
+			describe('when options.editDistance is true', function () {
+				it('should recognize the license', function () {
+					var output = licenseFind(bsdLicenseText, {editDistance: true});
+					output.should.eql(['BSD-2-Clause']);
+				});
+			});
+
+			describe('when options.editDistance is an empty array', function () {
+				it('should throw an error', function () {
+					(function () {
+						licenseFind(bsdLicenseText, {editDistance: []});
+					}).should.throwError();
+				});
+			});
+		});
+
+		describe('when text corresponds to an obscure license', function () {
+			var zedLicenseText =
+					'(c) Jim Davies, January 1995\nYou may copy and distribute this file freely.	Any queries and complaints should be forwarded to Jim.Davies@comlab.ox.ac.uk.\nIf you make any changes to this file, please do not distribute the results under the name `zed-csp.sty\'.';
+
+
+			describe('when options is null', function () {
+				it('should not recognize the license', function () {
+					var output = licenseFind(zedLicenseText);
+					output.should.be.empty;
+				});
+			});
+
+			describe('when options.editDistance is false', function () {
+				it('should not recognize the license', function () {
+					var output = licenseFind(zedLicenseText, {editDistance: false});
+					output.should.be.empty;
+				});
+			});
+
+			describe('when options.editDistance is true', function () {
+				it('should recognize a different license', function () {
+					var output = licenseFind(zedLicenseText, {editDistance: true});
+					output.should.not.equal('Zed');
+				});
+			});
+
+			describe('when options.editDistance is an empty array', function () {
+				it('should throw an error', function () {
+					(function () {
+						licenseFind(zedLicenseText, {editDistance: []});
+					}).should.throwError();
+				});
+			});
+
+			describe('when options.editDistance is an array containing a popular SPDX license key', function () {
+				it('should recognize a different license', function () {
+					var output = licenseFind(zedLicenseText, {editDistance: ['BSD-2-Clause']});
+					output.should.not.equal('Zed');
+				});
+			});
+
+			describe('when options.editDistance is an array containing a non-SPDX license key', function () {
+				it('should throw an error', function () {
+					(function () {
+						licenseFind(zedLicenseText, {editDistance: ['Bogus-Key']});
+					}).should.throwError();
+				});
+			});
+
+			describe('when options.editDistance is an array containing the SPDX key of the obscure license', function () {
+				it('should recognize the the license', function () {
+					var output = licenseFind(zedLicenseText, {editDistance: ['YPL-1.1', 'Zed', 'BSD-2-Clause']});
+					output.should.eql(['Zed']);
+				});
+			});
+
+		});
 	});
 });

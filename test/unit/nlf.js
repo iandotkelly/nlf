@@ -126,7 +126,7 @@ describe('nlf', function () {
 				},
 				function (err, results) {
 					/*jshint unused:false */
-					results.length.should.eql(5);
+					results.length.should.eql(7);
 					done();
 				});
 
@@ -144,7 +144,7 @@ describe('nlf', function () {
 				},
 				function (err, results) {
 					/*jshint unused:false */
-					results.length.should.eql(8);
+					results.length.should.eql(10);
 					done();
 				});
 
@@ -162,7 +162,7 @@ describe('nlf', function () {
 				},
 				function (err, results) {
 					/*jshint unused:false */
-					results.length.should.eql(23);
+					results.length.should.eql(28);
 					done();
 				});
 
