@@ -16,8 +16,10 @@
   "dependencies": {
     "archy": "^1.0.0",
     "commander": "^2.5.0",
+    "fast-levenshtein": "^1.0.6",
     "glob": "^4.0.6",
-    "read-installed": "^3.0.0"
+    "read-installed": "^3.0.0",
+    "spdx-license-list": "^1.1.0"
   },
   "devDependencies": {
     "globs": "^0.1.2",
