@@ -39,21 +39,21 @@ $ nlf
 
 Example output:
 <pre>
+archy@0.0.2 [license(s): MIT/X11]
+└── package.json:  MIT/X11
+
 commander@0.6.1 [license(s): MIT]
 └── readme files: MIT
-
-read-installed@0.2.2 [license(s): BSD]
-└── license files: BSD
 
 glob@3.2.3 [license(s): BSD]
 ├── package.json:  BSD
 └── license files: BSD
 
-archy@0.0.2 [license(s): MIT/X11]
-└── package.json:  MIT/X11
-
 json-stringify-safe@5.0.0 [license(s): BSD]
 ├── package.json:  BSD
+└── license files: BSD
+
+read-installed@0.2.2 [license(s): BSD]
 └── license files: BSD
 
 should@1.2.2 [license(s): MIT]
@@ -152,7 +152,7 @@ If you contribute to the project, tests are written in [mocha](http://visionmedi
 
 [The MIT License (MIT)](http://opensource.org/licenses/MIT)
 
-Copyright (c) 2013 Ian Kelly
+Copyright (c) 2013-2015 Ian Kelly
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -171,4 +171,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
-
