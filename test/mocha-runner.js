@@ -2,7 +2,7 @@
 
 var Mocha = require('mocha'),
 	reporter = process.env.MOCHA_REPORTER || 'spec',
-	globs = require('globs'),
+	globs = require('glob-all'),
 	path = require('path'),
 	patterns = [];
 

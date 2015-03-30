@@ -4,8 +4,11 @@
 
 'use strict';
 
-var nlf = require('../..'),
-	path = require('path');
+var nlf = require('../..');
+var path = require('path');
+
+var fixturedir = path.join(__dirname, '../fixtures/test-project');
+
 
 describe('nlf', function () {
 
@@ -18,7 +21,7 @@ describe('nlf', function () {
 
 			nlf.find(
 				{
-					directory: path.join(__dirname, '../..')
+					directory: fixturedir
 				},
 				function (err) {
 
@@ -37,7 +40,7 @@ describe('nlf', function () {
 
 			nlf.find(
 				{
-					directory: path.join(__dirname, '../..'),
+					directory: fixturedir,
 					production: true
 				},
 				function (err) {
@@ -88,7 +91,7 @@ describe('nlf', function () {
 
 			nlf.find(
 				{
-					directory: path.join(__dirname, '../..'),
+					directory: fixturedir,
 					production: 'TRUE'
 				},
 				function (err) {
@@ -120,49 +123,74 @@ describe('nlf', function () {
 
 			nlf.find(
 				{
-					directory: path.join(__dirname, '../..'),
+					directory: fixturedir,
 					production: true,
 					depth : 0
 				},
 				function (err, results) {
-					/*jshint unused:false */
-					results.length.should.eql(5);
+					if (err) {
+						throw err;
+					}
+					results.length.should.eql(2);
 					done();
 				});
 
 		});
 
-		//parse only current package.json deps., don't traverse inward
+		//parse only current package.json deps., don't traverse downwards
 		it('should parse with a depth of 0 including dev deps.', function (done) {
 
 			this.timeout(50000);
 
 			nlf.find(
 				{
-					directory: path.join(__dirname, '../..'),
-					depth : 0
+					directory: fixturedir,
+					depth : 0,
+					production: false
 				},
 				function (err, results) {
-					/*jshint unused:false */
-					results.length.should.eql(8);
+					if (err) {
+						throw err;
+					}
+					results.length.should.eql(3);
 					done();
 				});
 
 		});
 
-		//parse only current package.json deps., don't traverse inward
 		it('should parse with a depth of Infinity', function (done) {
 
 			this.timeout(50000);
 
 			nlf.find(
 				{
-					directory: path.join(__dirname, '../..'),
+					directory: fixturedir,
 					production: true
 				},
 				function (err, results) {
-					/*jshint unused:false */
-					results.length.should.eql(23);
+					if (err) {
+						throw err;
+					}
+					results.length.should.eql(3);
+					done();
+				});
+
+		});
+
+		it('should parse with a depth of Infinity with dev deps', function (done) {
+
+			this.timeout(50000);
+
+			nlf.find(
+				{
+					directory: fixturedir,
+					production: false
+				},
+				function (err, results) {
+					if (err) {
+						throw err;
+					}
+					results.length.should.eql(7);
 					done();
 				});
 
