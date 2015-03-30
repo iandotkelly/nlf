@@ -1,4 +1,11 @@
 
+1.2.0 (Mar 29, 2015)
+====================
+
+* Optimize globbing of files to siginificantly improve performance
+* Sort output data alphabetically
+* Bump dependencies
+
 1.1.0
 =================
 
