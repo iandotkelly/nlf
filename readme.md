@@ -3,7 +3,8 @@
 # Node License Finder (nlf)
 
 [![Version](https://img.shields.io/npm/v/nlf.svg)](https://www.npmjs.com/package/nlf) [![Downloads](https://img.shields.io/npm/dm/nlf.svg)](https://www.npmjs.com/package/nlf)
-[![Build Status](https://img.shields.io/travis/iandotkelly/nlf.svg)](https://travis-ci.org/iandotkelly/nlf) [![Dependency Status](https://gemnasium.com/iandotkelly/nlf.png)](https://gemnasium.com/iandotkelly/nlf) 
+[![Build Status](https://img.shields.io/travis/iandotkelly/nlf.svg)](https://travis-ci.org/iandotkelly/nlf) [![Dependency Status](https://gemnasium.com/iandotkelly/nlf.png)](https://gemnasium.com/iandotkelly/nlf)
+
 
 nlf is a utility for attempting to identify the licenses of modules in a node.js project.
 
