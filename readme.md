@@ -63,6 +63,8 @@ read-installed@0.2.2 [license(s): BSD]
 
 should@1.2.2 [license(s): MIT]
 └── readme files: MIT
+
+LICENSES: BSD, MIT, MIT/X11
 </pre>
 
 For output in CSV format use the -c (or --csv) switch:
