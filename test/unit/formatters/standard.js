@@ -31,7 +31,8 @@ input.push(mod);
 expected = 'test@1.0.0 [license(s): Apache, MIT]\n'
 	+ '├── package.json:  Apache\n'
 	+ '├── license files: MIT\n'
-	+ '└── readme files: MIT\n';
+	+ '└── readme files: MIT\n\n'
+	+ 'LICENSES: Apache, MIT\n';
 
 describe('standard formatter', function () {
 
@@ -40,7 +41,7 @@ describe('standard formatter', function () {
 		describe('with no callback', function () {
 
 			it('should throw', function () {
-				
+
 				mod.licenseSources.license.sources[0].read(function (err) {
 					if (err) {
 						throw err;
