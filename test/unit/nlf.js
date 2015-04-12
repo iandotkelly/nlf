@@ -8,7 +8,8 @@ var nlf = require('../..');
 var path = require('path');
 
 var fixturedir = path.join(__dirname, '../fixtures/test-project');
-
+var licensesArrayDir = path.join(__dirname, '../fixtures/licenses-array');
+var licensesStringDir = path.join(__dirname, '../fixtures/licenses-string');
 
 describe('nlf', function () {
 
@@ -195,5 +196,52 @@ describe('nlf', function () {
 				});
 
 		});
+
+		describe('with an array of licenses', function () {
+
+			it('should correctly get all licenses', function(done) {
+
+				nlf.find(
+					{
+						directory: licensesArrayDir
+					},
+					function (err, results) {
+						if (err) {
+							throw err;
+						}
+						results.length.should.eql(1);
+						var sources = results[0].licenseSources.package.sources;
+						sources.length.should.eql(2);
+						sources[0].license.should.eql('MIT');
+						sources[1].license.should.eql('GPLv2');
+						done();
+					});
+			});
+		});
+
+
+		describe('with an (incorrect) single licenses string', function () {
+
+			it('should correctly get the license', function(done) {
+
+				nlf.find(
+					{
+						directory: licensesStringDir
+					},
+					function (err, results) {
+						if (err) {
+							throw err;
+						}
+						results.length.should.eql(1);
+						var sources = results[0].licenseSources.package.sources;
+						sources.length.should.eql(1);
+						sources[0].license.should.eql('MIT');
+						done();
+					});
+
+			});
+
+		});
 	});
+
 });
