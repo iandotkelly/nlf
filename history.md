@@ -1,5 +1,12 @@
 
+1.3.0 (Apr 12, 2015)
+====================
+
+* Fix issue where npm modules incorrectly using a string in licenses property was interpreted as an array
+* Add a LICENSES summary to the standard formatter
+
 1.2.1 (Apr 12, 2015)
+====================
 
 * Move project from 'make' to 'gulp' for easier support on Windows
 * Bump dependencies
