@@ -1,4 +1,9 @@
 
+1.2.1 (Apr 12, 2015)
+
+* Move project from 'make' to 'gulp' for easier support on Windows
+* Bump dependencies
+
 1.2.0 (Mar 29, 2015)
 ====================
 
