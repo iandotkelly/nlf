@@ -10,6 +10,7 @@ var path = require('path');
 var fixturedir = path.join(__dirname, '../fixtures/test-project');
 var licensesArrayDir = path.join(__dirname, '../fixtures/licenses-array');
 var licensesStringDir = path.join(__dirname, '../fixtures/licenses-string');
+var missingName = path.join(__dirname, '../fixtures/missing-name');
 
 describe('nlf', function () {
 
@@ -242,6 +243,32 @@ describe('nlf', function () {
 			});
 
 		});
+
+		describe('with a project without name or version', function () {
+
+			it('should correctly get the license', function(done) {
+
+				nlf.find(
+					{
+						directory: missingName
+					},
+					function (err, results) {
+						if (err) {
+							throw err;
+						}
+						results.length.should.be.equal(1);
+						var result = results[0];
+						result.name.should.be.equal('unknown(' + missingName + ')@0.0.0');
+						result.id.should.be.equal('unknown(' + missingName + ')@0.0.0');
+						result.version.should.be.equal('0.0.0');
+						var sources = result.licenseSources.package.sources;
+						sources.length.should.eql(1);
+						sources[0].license.should.eql('MIT');
+						done();
+					});
+			});
+		});
+
 	});
 
 });
