@@ -1,4 +1,9 @@
 
+1.3.1 (May 10, 2015)
+
+* Fix issue where a root module without a name or version will result in an exception being thrown
+* Bump dependencies
+
 1.3.0 (Apr 12, 2015)
 ====================
 
