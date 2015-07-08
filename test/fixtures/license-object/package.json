@@ -1,0 +1,11 @@
+{
+  "name": "module",
+  "title": "NLF Test Project",
+  "description": "Test project for unit tests",
+  "author": "Ian Kelly <iandotkelly@gmail.com>",
+  "version": "1.0.0",
+  "license": {
+    "type": "MIT",
+    "url": "http://opensource.org/licenses/MIT"
+  }
+}
