@@ -10,6 +10,7 @@ var path = require('path');
 var fixturedir = path.join(__dirname, '../fixtures/test-project');
 var licensesArrayDir = path.join(__dirname, '../fixtures/licenses-array');
 var licenseObjectDir = path.join(__dirname, '../fixtures/license-object');
+var licensesObjectDir = path.join(__dirname, '../fixtures/licenses-object');
 var licensesStringDir = path.join(__dirname, '../fixtures/licenses-string');
 var missingName = path.join(__dirname, '../fixtures/missing-name');
 
@@ -206,6 +207,28 @@ describe('nlf', function () {
 				nlf.find(
 					{
 						directory: licenseObjectDir
+					},
+					function (err, results) {
+						if (err) {
+							throw err;
+						}
+						results.length.should.eql(1);
+						var sources = results[0].licenseSources.package.sources;
+						sources.length.should.eql(1);
+						sources[0].license.should.eql('MIT');
+						done();
+					});
+
+			});
+		});
+
+		describe('with a licenses object', function () {
+
+			it('should correctly get the license', function(done) {
+
+				nlf.find(
+					{
+						directory: licensesObjectDir
 					},
 					function (err, results) {
 						if (err) {
