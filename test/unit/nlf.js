@@ -8,6 +8,7 @@ var nlf = require('../..');
 var path = require('path');
 
 var fixturedir = path.join(__dirname, '../fixtures/test-project');
+var fixtureSubdirs = path.join(__dirname, '../fixtures/test-project-subdirs');
 var licensesArrayDir = path.join(__dirname, '../fixtures/licenses-array');
 var licenseObjectDir = path.join(__dirname, '../fixtures/license-object');
 var licensesObjectDir = path.join(__dirname, '../fixtures/licenses-object');
@@ -195,6 +196,37 @@ describe('nlf', function () {
 						throw err;
 					}
 					results.length.should.eql(7);
+					done();
+				});
+
+		});
+
+		it('should include subdirs but ignore node_modules and bower_modules',
+			function (done) {
+
+			this.timeout(50000);
+
+			nlf.find(
+				{
+					directory: fixtureSubdirs,
+					production: false
+				},
+				function (err, results) {
+					if (err) {
+						throw err;
+					}
+					results.length.should.eql(4);
+					var thisProject;
+					for (var i = 0; i < results.length; i++) {
+						if (results[i].id === 'nlf-test@1.0.0') {
+							thisProject = results[i].licenseSources;
+						}
+					}
+					thisProject.package.sources.length.should.be.eql(0);
+					thisProject.readme.sources.length.should.be.eql(0);
+					thisProject.license.sources.length.should.be.eql(1);
+					thisProject.license.sources[0].filePath.should.be.eql(
+						path.join(fixtureSubdirs, 'subdir/docs/license.md'));
 					done();
 				});
 

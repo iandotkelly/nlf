@@ -1,0 +1,10 @@
+{
+  "name": "nlf-test",
+  "title": "NLF Test Project",
+  "description": "Test project for unit tests with subdirectories",
+  "author": "Ian Kelly <iandotkelly@gmail.com>",
+  "version": "1.0.0",
+  "dependencies": {
+    "module-a": "1.0.0"
+  }
+}
