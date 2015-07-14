@@ -1,3 +1,8 @@
+1.3.3 (July 14, 2015)
+====================
+
+* Ignore files that happen to be in node_module or bower_component folders
+
 1.3.2 (July 12, 2015)
 ====================
 
