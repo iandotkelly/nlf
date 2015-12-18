@@ -15,9 +15,11 @@
   },
   "dependencies": {
     "archy": "1.0.0",
+    "co": "4.6.0",
     "commander": "2.8.1",
     "glob-all": "3.0.1",
-    "read-installed": "^4.0.1"
+    "read-installed": "^4.0.1",
+    "thunkify": "2.1.2"
   },
   "devDependencies": {
     "gulp": "^3.9.0",
