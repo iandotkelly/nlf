@@ -55,7 +55,7 @@ describe('csv formatter', function () {
 
 			it('should return an error', function () {
 
-				csvFormat.render(undefined, function (err) {
+				csvFormat.render(undefined, {}, function (err) {
 
 					err.should.be.an.object;
 
@@ -69,19 +69,19 @@ describe('csv formatter', function () {
 
 			it('should return an error', function () {
 
-				csvFormat.render(1, function (err) {
+				csvFormat.render(1, {}, function (err) {
 
 					err.should.be.an.object;
 
 				});
 
-				csvFormat.render(true, function (err) {
+				csvFormat.render(true, {}, function (err) {
 
 					err.should.be.an.object;
 
 				});
 
-				csvFormat.render('cats', function (err) {
+				csvFormat.render('cats', {}, function (err) {
 
 					err.should.be.an.object;
 
@@ -95,7 +95,7 @@ describe('csv formatter', function () {
 
 			it('should return an error', function () {
 
-				csvFormat.render([], function (err) {
+				csvFormat.render([], {}, function (err) {
 
 					err.should.be.an.object;
 
@@ -113,7 +113,7 @@ describe('csv formatter', function () {
 						throw err;
 					}
 
-					csvFormat.render(input, function (err, output) {
+					csvFormat.render(input, {}, function (err, output) {
 
 						if (err)
 						{
