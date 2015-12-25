@@ -44,7 +44,6 @@
   "esnext": false,
   "evil": false,
   "funcscope": false,
-  "globalstrict": true,
   "iterator": false,
   "lastsemic": false,
   "laxbreak": true,
