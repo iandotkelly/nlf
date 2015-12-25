@@ -14,6 +14,7 @@ var standardFormat = require('../../..').standardFormatter,
 	input = [],
 	mod,
 	path = require('path'),
+	expectedWithDatailSummary,
 	expected;
 
 require('should');
@@ -33,6 +34,16 @@ expected = 'test@1.0.0 [license(s): Apache, MIT]\n'
 	+ '├── license files: MIT\n'
 	+ '└── readme files: MIT\n\n'
 	+ 'LICENSES: Apache, MIT\n';
+
+expectedWithDatailSummary = 'test@1.0.0 [license(s): Apache, MIT]\n'
+	+ '├── package.json:  Apache\n'
+	+ '├── license files: MIT\n'
+	+ '└── readme files: MIT\n\n'
+	+ 'LICENSES:\n'
+	+ '├─┬ Apache\n'
+	+ '│ └── test@1.0.0\n'
+	+ '└─┬ MIT\n'
+	+ '  └── test@1.0.0\n';
 
 describe('standard formatter', function () {
 
@@ -66,7 +77,7 @@ describe('standard formatter', function () {
 
 			it('should return an error', function () {
 
-				standardFormat.render(undefined, function (err) {
+				standardFormat.render(undefined, {}, function (err) {
 
 					err.should.be.an.object;
 
@@ -80,19 +91,19 @@ describe('standard formatter', function () {
 
 			it('should return an error', function () {
 
-				standardFormat.render(1, function (err) {
+				standardFormat.render(1, {}, function (err) {
 
 					err.should.be.an.object;
 
 				});
 
-				standardFormat.render(true, function (err) {
+				standardFormat.render(true, {}, function (err) {
 
 					err.should.be.an.object;
 
 				});
 
-				standardFormat.render('cats', function (err) {
+				standardFormat.render('cats', {}, function (err) {
 
 					err.should.be.an.object;
 
@@ -106,7 +117,7 @@ describe('standard formatter', function () {
 
 			it('should return an error', function () {
 
-				standardFormat.render([], function (err) {
+				standardFormat.render([], {}, function (err) {
 
 					err.should.be.an.object;
 
@@ -127,7 +138,8 @@ describe('standard formatter', function () {
 					if (err) {
 						throw err;
 					}
-					standardFormat.render(input, function (err, output) {
+					standardFormat.render(input, {summaryMode: 'simple'}, 
+					  function (err, output) {
 
 						if (err)
 						{
@@ -140,5 +152,32 @@ describe('standard formatter', function () {
 				});
 			});
 		});
+
+		it('should return detail summary', function (done) {
+
+			mod.licenseSources.license.sources[0].read(function (err) {
+				if (err) {
+					throw err;
+				}
+
+				mod.licenseSources.readme.sources[0].read(function (err) {
+					if (err) {
+						throw err;
+					}
+					standardFormat.render(input, {summaryMode: 'detail'}, 
+					  function (err, output) {
+
+						if (err)
+						{
+							throw err;
+						}
+
+						output.should.be.equal(expectedWithDatailSummary);
+						done();
+					});
+				});
+			});
+		});
+
 	});
 });

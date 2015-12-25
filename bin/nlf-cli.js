@@ -24,12 +24,14 @@ var program = require('commander'),
 program
 	.version(pjson.version)
 	.option('-d, --no-dev', 'exclude development dependencies')
+	.option('-s, --summary <mode>', 'summary (not available in csv format): off | simple (default) | detail', /^(off|simple|detail)$/i, 'simple')
 	.option('-c, --csv', 'output in csv format')
 	.option('-r, --reach [num]', 'package depth (reach)', parseInt, Infinity)
 	.parse(process.argv);
 
 options.production = !program.dev;
 options.depth = program.reach;
+options.summaryMode = program.summary;
 
 // select which formatter
 if (program.csv) {
@@ -46,7 +48,7 @@ nlf.find(options, function (err, data) {
 	}
 
 	if (data && data.length > 0) {
-		format.render(data, function (err, output) {
+		format.render(data, options, function (err, output) {
 			if (err) {
 				console.error(err);
 				process.exit(1);
