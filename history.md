@@ -1,3 +1,8 @@
+1.4.0 (January 16, 2016)
+====================
+
+* Add support for reporting modules grouped by license
+
 1.3.3 (July 14, 2015)
 ====================
 

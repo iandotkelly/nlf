@@ -82,6 +82,33 @@ $ cd my-module
 $ nlf -d
 ```
 
+#### Summary Mode
+
+`--summary <mode>` option, which can be set to "off", "simple" or "detail". This option controls what will be printed in summary in standard format.
+
+* `off` turns off summary output
+* `simple` shows a list of licenses used in the project, the default behavior
+* `detail` shows all modules in current project and group by licenses. As example below:
+
+```sh
+LICENSES:
+├─┬ BSD
+│ ├── amdefine@1.0.0
+│ ├── boom@0.4.2
+│ ├── cryptiles@0.2.2
+│ └── diff@1.4.0
+├─┬ BSD-2-Clause
+│ └── normalize-package-data@2.3.5
+├─┬ Apache-2.0
+│ ├── request@2.40.0
+│ ├── spdx-correct@1.0.2
+│ └── validate-npm-package-license@3.0.1
+├─┬ (MIT AND CC-BY-3.0)
+│ └── spdx-expression-parse@1.0.1
+└─┬ MPL
+  └── tough-cookie@2.2.1
+```
+
 ### Programmatically
 
 ```javascript
