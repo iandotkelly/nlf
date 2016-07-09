@@ -16,6 +16,7 @@
   "dependencies": {
     "archy": "1.0.0",
     "commander": "2.9.0",
+    "compare-versions": "2.0.2",
     "glob-all": "3.0.3",
     "read-installed": "4.0.3"
   },
