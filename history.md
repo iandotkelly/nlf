@@ -1,3 +1,12 @@
+1.4.1 (July 9, 2016)
+====================
+
+* Removes git+ prefix from git+https repository
+* Fix issue where license key (e.g. MIT) is at the very end of the file
+* Adds Public Domain license
+* Moved MIT license text into a separate LICENSE.md file
+* Sorts list of modules by name@version, not just name
+
 1.4.0 (January 16, 2016)
 ====================
 
