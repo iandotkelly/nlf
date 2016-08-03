@@ -1,3 +1,8 @@
+1.4.2 (August 2, 2016)
+====================
+
+* Update dependencies to remove vulnerability in glob-all #40
+
 1.4.1 (July 9, 2016)
 ====================
 
