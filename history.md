@@ -1,3 +1,8 @@
+1.4.3 (February 1, 2017)
+====================
+
+* Update dependencies and add travis tests for node 7 and remove testing on node 0.10 and 0.12
+
 1.4.2 (August 2, 2016)
 ====================
 
