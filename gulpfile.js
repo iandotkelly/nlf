@@ -20,7 +20,9 @@ process.env['COVERALLS_REPO_TOKEN'] = 'rCIR66aQA8jUA7Berlh1PHd917mjMt4hU';
  */
 gulp.task('lint', function() {
 	return gulp.src(['lib/**/*.js', 'test/unit/**/*.js', 'gulpfile.js'])
-		.pipe(jshint())
+		.pipe(jshint({
+            esnext: true
+		}))
 		.pipe(jshint.reporter('default'))
 		.pipe(jshint.reporter('fail'));
 });
@@ -30,7 +32,9 @@ gulp.task('lint', function() {
  */
 gulp.task('test', ['lint'], function () {
 	return gulp.src(['lib/**/*.js', 'test/unit/**/*.js'], { read: false })
-		.pipe(jshint())
+		.pipe(jshint({
+            esnext: true
+		}))
 		.pipe(jshint.reporter('default'))
 		.pipe(jshint.reporter('fail'))
 		.pipe(cover.instrument({
