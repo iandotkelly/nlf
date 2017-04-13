@@ -24,6 +24,7 @@ nlf can be used programmatically, or from the command line.
 - `directory` (String) - where to look
 - `production` (Boolean) (Default:false) - only traverse dependencies, no dev-dependencies
 - `depth` (Number) (Default: Infinity) - how deep to traverse packages where 0 is the current package.json only
+- `summaryMode` (String: off|simple|detail) (Default: simple)
 
 
 ### CLI
@@ -79,6 +80,33 @@ To exclude development dependencies and only analyze dependencies for production
 ```sh
 $ cd my-module
 $ nlf -d
+```
+
+#### Summary Mode
+
+`--summary <mode>` option, which can be set to "off", "simple" or "detail". This option controls what will be printed in summary in standard format.
+
+* `off` turns off summary output
+* `simple` shows a list of licenses used in the project, the default behavior
+* `detail` shows all modules in current project and group by licenses. As example below:
+
+```sh
+LICENSES:
+├─┬ BSD
+│ ├── amdefine@1.0.0
+│ ├── boom@0.4.2
+│ ├── cryptiles@0.2.2
+│ └── diff@1.4.0
+├─┬ BSD-2-Clause
+│ └── normalize-package-data@2.3.5
+├─┬ Apache-2.0
+│ ├── request@2.40.0
+│ ├── spdx-correct@1.0.2
+│ └── validate-npm-package-license@3.0.1
+├─┬ (MIT AND CC-BY-3.0)
+│ └── spdx-expression-parse@1.0.1
+└─┬ MPL
+  └── tough-cookie@2.2.1
 ```
 
 ### Programmatically
@@ -156,27 +184,3 @@ $ npm install
 $ gulp
 ```
 If you contribute to the project, tests are written in [mocha](http://visionmedia.github.com/mocha/), using [should.js](https://github.com/visionmedia/should.js/) or the node.js assert module.
-
-## License
-
-[The MIT License (MIT)](http://opensource.org/licenses/MIT)
-
-Copyright (c) 2013-2015 Ian Kelly
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.

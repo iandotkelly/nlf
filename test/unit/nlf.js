@@ -216,7 +216,7 @@ describe('nlf', function () {
 						throw err;
 					}
 					results.length.should.eql(4);
-					var thisProject;
+					var thisProject;	
 					for (var i = 0; i < results.length; i++) {
 						if (results[i].id === 'nlf-test@1.0.0') {
 							thisProject = results[i].licenseSources;

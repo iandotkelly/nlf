@@ -37,7 +37,6 @@ describe('Module', function () {
 			myObject.should.be.an.object;
 		});
 
-
 		it('should set the name, version, directory, repository and type',
 			function () {
 			var myModule = new Module('my-module@1.0.0',
@@ -52,6 +51,28 @@ describe('Module', function () {
 			myModule.directory.should.be.equal('/my/dir');
 			myModule.repository.should.be.equal('https://myhost/myrepo');
 			myModule.type.should.be.equal('development');
+		});
+
+		it('should remove git prefix from repository URL',
+			function () {
+			var myModule = new Module(
+				'my-module@1.0.0',
+				undefined,
+				undefined,
+				'/my/dir',
+				'git+https://myhost/myrepo.git');
+			myModule.repository.should.be.equal('https://myhost/myrepo');
+		});
+
+		it('should replace git protocol with http',
+			function () {
+			var myModule = new Module(
+				'my-module@1.0.0',
+				undefined,
+				undefined,
+				'/my/dir',
+				'git://myhost/myrepo.git');
+			myModule.repository.should.be.equal('http://myhost/myrepo');
 		});
 
 		it('with no name should throw an exception', function () {

@@ -1,3 +1,27 @@
+1.4.3 (February 1, 2017)
+====================
+
+* Update dependencies and add travis tests for node 7 and remove testing on node 0.10 and 0.12
+
+1.4.2 (August 2, 2016)
+====================
+
+* Update dependencies to remove vulnerability in glob-all #40
+
+1.4.1 (July 9, 2016)
+====================
+
+* Removes git+ prefix from git+https repository
+* Fix issue where license key (e.g. MIT) is at the very end of the file
+* Adds Public Domain license
+* Moved MIT license text into a separate LICENSE.md file
+* Sorts list of modules by name@version, not just name
+
+1.4.0 (January 16, 2016)
+====================
+
+* Add support for reporting modules grouped by license
+
 1.3.3 (July 14, 2015)
 ====================
 
