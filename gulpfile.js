@@ -9,8 +9,7 @@
 var gulp = require('gulp');
 var jshint = require('gulp-jshint');
 var mocha = require('gulp-mocha');
-var cover = require('gulp-coverage');
-var coveralls = require('gulp-coveralls');
+const shell = require('gulp-shell');
 
 // set coveralls environmental variable
 process.env['COVERALLS_REPO_TOKEN'] = 'rCIR66aQA8jUA7Berlh1PHd917mjMt4hU';
@@ -28,35 +27,16 @@ gulp.task('lint', function() {
 /**
  * Task for developer test and coverage report
  */
-gulp.task('test', ['lint'], function () {
+gulp.task('test', function () {
 	return gulp.src(['lib/**/*.js', 'test/unit/**/*.js'], { read: false })
-		.pipe(jshint())
-		.pipe(jshint.reporter('default'))
-		.pipe(jshint.reporter('fail'))
-		.pipe(cover.instrument({
-			pattern: ['lib/**/*.js']
-		}))
-		.pipe(mocha())
-		.pipe(cover.gather())
-		.pipe(cover.format())
-		.pipe(gulp.dest('reports'));
+		.pipe(mocha());
 });
 
-/**
- * Task for travis-ci which pipes coverage to coveralls
- */
-gulp.task('test-coveralls', ['lint'], function() {
-	return gulp.src(['lib/**/*.js', 'test/unit/**/*.js'], { read: false })
-		.pipe(cover.instrument({
-			pattern: ['lib/**/*.js']
-		}))
-		.pipe(mocha())
-		.pipe(cover.gather())
-		.pipe(cover.format({
-			reporter: 'lcov'
-		}))
-		.pipe(coveralls());
-});
+gulp.task('coveralls', shell.task([
+	'./node_modules/.bin/nyc gulp test',
+	'./node_modules/.bin/nyc report | coveralls'
+]))
 
 gulp.task('default', ['lint', 'test']);
-gulp.task('travis', ['lint', 'test-coveralls']);
+gulp.task('travis', ['lint', 'test']);
+gulp.task('coverage', ['coveralls']);

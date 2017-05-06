@@ -1,5 +1,4 @@
 node_modules
-reports/
-.coverrun
-.coverdata
 npm-debug.log
+coverage/
+.nyc_output/
