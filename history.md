@@ -1,7 +1,7 @@
 2.0.0 (May 6, 2017)
 ====================
 
-* Refactor to replace read-installed with snyk-resolve-deps to fix issues caused flattening of the dependency tree when using npm3 #30 #46.  While the API and results should appear as before, this is a significant refactor.
+* Refactor to replace 'read-installed' module with 'snyk-resolve-deps' to fix issues caused flattening of the dependency tree when using npm3 #30 #46.  While the API and results should appear as before, this is a significant refactor.
 * Update engine to be node >= 4 - this version of nlf does not work on node 0.10+ as before
 
 1.4.3 (February 1, 2017)
