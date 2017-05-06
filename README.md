@@ -3,7 +3,7 @@
 # Node License Finder (nlf)
 
 [![Version](https://img.shields.io/npm/v/nlf.svg)](https://www.npmjs.com/package/nlf) [![Downloads](https://img.shields.io/npm/dm/nlf.svg)](https://www.npmjs.com/package/nlf)
-[![Build Status](https://img.shields.io/travis/iandotkelly/nlf.svg)](https://travis-ci.org/iandotkelly/nlf) [![Dependency Status](https://gemnasium.com/iandotkelly/nlf.png)](https://gemnasium.com/iandotkelly/nlf)
+[![Build Status](https://img.shields.io/travis/iandotkelly/nlf.svg)](https://travis-ci.org/iandotkelly/nlf) [![Dependency Status](https://gemnasium.com/iandotkelly/nlf.svg)](https://gemnasium.com/iandotkelly/nlf)
 [![Codacy Badge](https://www.codacy.com/project/badge/2c7e00c886b14a3a81e06a5eec19aa1f)](https://www.codacy.com/app/iandotkelly/nlf)
 [![Coveralls](https://img.shields.io/coveralls/iandotkelly/nlf.svg)](https://coveralls.io/r/iandotkelly/nlf)
 
