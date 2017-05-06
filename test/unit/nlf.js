@@ -136,10 +136,30 @@ describe('nlf', function () {
 					if (err) {
 						throw err;
 					}
-					results.length.should.eql(2);
+					results.length.should.eql(1);
 					done();
 				});
 
+		});
+
+		//parse only current package.json deps., don't traverse inward
+		it('should parse with a depth of 1', function (done) {
+
+			this.timeout(50000);
+
+			nlf.find(
+				{
+					directory: fixturedir,
+					production: true,
+					depth : 1
+				},
+				function (err, results) {
+					if (err) {
+						throw err;
+					}
+					results.length.should.eql(2);
+					done();
+				});
 		});
 
 		//parse only current package.json deps., don't traverse downwards
@@ -151,6 +171,27 @@ describe('nlf', function () {
 				{
 					directory: fixturedir,
 					depth : 0,
+					production: false
+				},
+				function (err, results) {
+					if (err) {
+						throw err;
+					}
+					results.length.should.eql(1);
+					done();
+				});
+
+		});
+
+		//parse only current package.json deps., don't traverse downwards
+		it('should parse with a depth of 1 including dev deps.', function (done) {
+
+			this.timeout(50000);
+
+			nlf.find(
+				{
+					directory: fixturedir,
+					depth : 1,
 					production: false
 				},
 				function (err, results) {
@@ -176,7 +217,7 @@ describe('nlf', function () {
 					if (err) {
 						throw err;
 					}
-					results.length.should.eql(3);
+					results.length.should.eql(4);
 					done();
 				});
 
@@ -336,8 +377,8 @@ describe('nlf', function () {
 						}
 						results.length.should.be.equal(1);
 						var result = results[0];
-						result.name.should.be.equal('unknown(' + missingName + ')@0.0.0');
-						result.id.should.be.equal('unknown(' + missingName + ')@0.0.0');
+						result.name.should.be.equal('missing-name');
+						result.id.should.be.equal('missing-name@0.0.0');
 						result.version.should.be.equal('0.0.0');
 						var sources = result.licenseSources.package.sources;
 						sources.length.should.eql(1);

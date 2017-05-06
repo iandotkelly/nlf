@@ -4,4 +4,4 @@ node_js:
   - "6"
   - "4"
 before_install:
-  - npm install -g gulp@3.9.0
+  - npm install -g gulp@3.9.1
