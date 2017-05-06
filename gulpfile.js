@@ -9,7 +9,7 @@
 var gulp = require('gulp');
 var jshint = require('gulp-jshint');
 var mocha = require('gulp-mocha');
-const shell = require('gulp-shell');
+var shell = require('gulp-shell');
 
 // set coveralls environmental variable
 process.env['COVERALLS_REPO_TOKEN'] = 'rCIR66aQA8jUA7Berlh1PHd917mjMt4hU';
@@ -35,7 +35,7 @@ gulp.task('test', function () {
 gulp.task('coveralls', shell.task([
 	'./node_modules/.bin/nyc gulp test',
 	'./node_modules/.bin/nyc report | coveralls'
-]))
+]));
 
 gulp.task('default', ['lint', 'test']);
 gulp.task('travis', ['lint', 'test']);
