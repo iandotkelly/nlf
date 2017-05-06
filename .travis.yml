@@ -6,4 +6,4 @@ node_js:
 before_install:
   - npm install -g gulp@3.9.1
 after_success:
-  - gulp coverage
+  - gulp coveralls

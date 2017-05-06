@@ -32,11 +32,15 @@ gulp.task('test', function () {
 		.pipe(mocha());
 });
 
+gulp.task('coverage', shell.task([
+	'./node_modules/.bin/nyc gulp test',
+	'./node_modules/.bin/nyc report --reporter=html',
+]));
+
 gulp.task('coveralls', shell.task([
 	'./node_modules/.bin/nyc gulp test',
-	'./node_modules/.bin/nyc report | coveralls'
+	'./node_modules/.bin/nyc report --reporter=text-lcov | coveralls'
 ]));
 
 gulp.task('default', ['lint', 'test']);
 gulp.task('travis', ['lint', 'test']);
-gulp.task('coverage', ['coveralls']);
