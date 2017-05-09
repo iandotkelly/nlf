@@ -6,40 +6,35 @@
 
 'use strict';
 
-var gulp = require('gulp');
-var jshint = require('gulp-jshint');
-var mocha = require('gulp-mocha');
-var shell = require('gulp-shell');
+const gulp = require('gulp');
+const mocha = require('gulp-mocha');
+const shell = require('gulp-shell');
+const eslint = require('gulp-eslint');
 
 // set coveralls environmental variable
-process.env['COVERALLS_REPO_TOKEN'] = 'rCIR66aQA8jUA7Berlh1PHd917mjMt4hU';
+process.env.COVERALLS_REPO_TOKEN = 'rCIR66aQA8jUA7Berlh1PHd917mjMt4hU';
 
-/**
- * Linting task
- */
-gulp.task('lint', function() {
-	return gulp.src(['lib/**/*.js', 'test/unit/**/*.js', 'gulpfile.js'])
-		.pipe(jshint())
-		.pipe(jshint.reporter('default'))
-		.pipe(jshint.reporter('fail'));
-});
+gulp.task('lint', () =>
+  gulp.src(['**/*.js', '!node_modules/**'])
+  .pipe(eslint())
+  .pipe(eslint.format())
+  .pipe(eslint.failAfterError()));
 
 /**
  * Task for developer test and coverage report
  */
-gulp.task('test', function () {
-	return gulp.src(['lib/**/*.js', 'test/unit/**/*.js'], { read: false })
-		.pipe(mocha());
-});
+gulp.task('test', () =>
+  gulp.src(['lib/**/*.js', 'test/unit/**/*.js'], { read: false })
+  .pipe(mocha()));
 
 gulp.task('coverage', shell.task([
-	'./node_modules/.bin/nyc gulp test',
-	'./node_modules/.bin/nyc report --reporter=html',
+  './node_modules/.bin/nyc gulp test',
+  './node_modules/.bin/nyc report --reporter=html',
 ]));
 
 gulp.task('coveralls', shell.task([
-	'./node_modules/.bin/nyc gulp test',
-	'./node_modules/.bin/nyc report --reporter=text-lcov | coveralls'
+  './node_modules/.bin/nyc gulp test',
+  './node_modules/.bin/nyc report --reporter=text-lcov | coveralls',
 ]));
 
 gulp.task('default', ['lint', 'test']);

@@ -6,178 +6,142 @@
 
 'use strict';
 
+const standardFormat = require('../../..').standardFormatter;
+const Module = require('../../..').Module;
+const PackageSource = require('../../..').PackageSource;
+const FileSource = require('../../..').FileSource;
+const path = require('path');
 
-var standardFormat = require('../../..').standardFormatter,
-	Module = require('../../..').Module,
-	PackageSource = require('../../..').PackageSource,
-	FileSource = require('../../..').FileSource,
-	input = [],
-	mod,
-	path = require('path'),
-	expectedWithDatailSummary,
-	expected;
+const input = [];
 
 require('should');
 
 // input module
-mod = new Module('test@1.0.0', 'test', '1.0.0', '/dir/test');
+const mod = new Module('test@1.0.0', 'test', '1.0.0', '/dir/test');
 mod.licenseSources.package.add(new PackageSource('Apache'));
 mod.licenseSources.license.add(
-	new FileSource(path.join(__dirname, '../../fixtures/MIT')));
+  new FileSource(path.join(__dirname, '../../fixtures/MIT')));
 mod.licenseSources.readme.add(
-	new FileSource(path.join(__dirname, '../../fixtures/MIT')));
+  new FileSource(path.join(__dirname, '../../fixtures/MIT')));
 input.push(mod);
 
 // expected reponse
-expected = 'test@1.0.0 [license(s): Apache, MIT]\n'
-	+ '├── package.json:  Apache\n'
-	+ '├── license files: MIT\n'
-	+ '└── readme files: MIT\n\n'
-	+ 'LICENSES: Apache, MIT\n';
+const expected = 'test@1.0.0 [license(s): Apache, MIT]\n'
+  + '├── package.json:  Apache\n'
+  + '├── license files: MIT\n'
+  + '└── readme files: MIT\n\n'
+  + 'LICENSES: Apache, MIT\n';
 
-expectedWithDatailSummary = 'test@1.0.0 [license(s): Apache, MIT]\n'
-	+ '├── package.json:  Apache\n'
-	+ '├── license files: MIT\n'
-	+ '└── readme files: MIT\n\n'
-	+ 'LICENSES:\n'
-	+ '├─┬ Apache\n'
-	+ '│ └── test@1.0.0\n'
-	+ '└─┬ MIT\n'
-	+ '  └── test@1.0.0\n';
+const expectedWithDatailSummary = 'test@1.0.0 [license(s): Apache, MIT]\n'
+  + '├── package.json:  Apache\n'
+  + '├── license files: MIT\n'
+  + '└── readme files: MIT\n\n'
+  + 'LICENSES:\n'
+  + '├─┬ Apache\n'
+  + '│ └── test@1.0.0\n'
+  + '└─┬ MIT\n'
+  + '  └── test@1.0.0\n';
 
-describe('standard formatter', function () {
+describe('standard formatter', () => {
+  describe('render method', () => {
+    describe('with no callback', () => {
+      it('should throw', () => {
+        mod.licenseSources.license.sources[0].read((licenseErr) => {
+          if (licenseErr) {
+            throw licenseErr;
+          }
 
-	describe('render method', function () {
+          mod.licenseSources.readme.sources[0].read((readmeErr) => {
+            if (readmeErr) {
+              throw readmeErr;
+            }
 
-		describe('with no callback', function () {
-
-			it('should throw', function () {
-
-				mod.licenseSources.license.sources[0].read(function (err) {
-					if (err) {
-						throw err;
-					}
-
-					mod.licenseSources.readme.sources[0].read(function (err) {
-						if (err) {
-							throw err;
-						}
-
-						(function () {
-							standardFormat.render(input);
-						}).should.throw();
-
-					});
-				});
-			});
-		});
+            (() => {
+              standardFormat.render(input);
+            }).should.throw();
+          });
+        });
+      });
+    });
 
 
-		describe('with no data', function () {
-
-			it('should return an error', function () {
-
-				standardFormat.render(undefined, {}, function (err) {
-
-					err.should.be.an.object;
-
-				});
-
-			});
-		});
+    describe('with no data', () => {
+      it('should return an error', () => {
+        standardFormat.render(undefined, {}, (err) => {
+          err.should.be.an.object;
+        });
+      });
+    });
 
 
-		describe('with badly typed data', function () {
+    describe('with badly typed data', () => {
+      it('should return an error', () => {
+        standardFormat.render(1, {}, (err) => {
+          err.should.be.an.object;
+        });
 
-			it('should return an error', function () {
+        standardFormat.render(true, {}, (err) => {
+          err.should.be.an.object;
+        });
 
-				standardFormat.render(1, {}, function (err) {
-
-					err.should.be.an.object;
-
-				});
-
-				standardFormat.render(true, {}, function (err) {
-
-					err.should.be.an.object;
-
-				});
-
-				standardFormat.render('cats', {}, function (err) {
-
-					err.should.be.an.object;
-
-				});
-
-			});
-		});
+        standardFormat.render('cats', {}, (err) => {
+          err.should.be.an.object;
+        });
+      });
+    });
 
 
-		describe('with an empty array', function () {
+    describe('with an empty array', () => {
+      it('should return an error', () => {
+        standardFormat.render([], {}, (err) => {
+          err.should.be.an.object;
+        });
+      });
+    });
 
-			it('should return an error', function () {
+    it('should return a record in the expected format', (done) => {
+      mod.licenseSources.license.sources[0].read((licenseErr) => {
+        if (licenseErr) {
+          throw licenseErr;
+        }
 
-				standardFormat.render([], {}, function (err) {
+        mod.licenseSources.readme.sources[0].read((readmeErr) => {
+          if (readmeErr) {
+            throw readmeErr;
+          }
 
-					err.should.be.an.object;
+          standardFormat.render(input, { summaryMode: 'simple' }, (renderErr, output) => {
+            if (renderErr) {
+              throw renderErr;
+            }
 
-				});
+            output.should.be.equal(expected);
+            done();
+          });
+        });
+      });
+    });
 
-			});
-		});
+    it('should return detail summary', (done) => {
+      mod.licenseSources.license.sources[0].read((licenseErr) => {
+        if (licenseErr) {
+          throw licenseErr;
+        }
 
+        mod.licenseSources.readme.sources[0].read((readmeErr) => {
+          if (readmeErr) {
+            throw readmeErr;
+          }
+          standardFormat.render(input, { summaryMode: 'detail' }, (renderErr, output) => {
+            if (renderErr) {
+              throw renderErr;
+            }
 
-		it('should return a record in the expected format', function (done) {
-
-			mod.licenseSources.license.sources[0].read(function (err) {
-				if (err) {
-					throw err;
-				}
-
-				mod.licenseSources.readme.sources[0].read(function (err) {
-					if (err) {
-						throw err;
-					}
-					standardFormat.render(input, {summaryMode: 'simple'}, 
-					  function (err, output) {
-
-						if (err)
-						{
-							throw err;
-						}
-
-						output.should.be.equal(expected);
-						done();
-					});
-				});
-			});
-		});
-
-		it('should return detail summary', function (done) {
-
-			mod.licenseSources.license.sources[0].read(function (err) {
-				if (err) {
-					throw err;
-				}
-
-				mod.licenseSources.readme.sources[0].read(function (err) {
-					if (err) {
-						throw err;
-					}
-					standardFormat.render(input, {summaryMode: 'detail'}, 
-					  function (err, output) {
-
-						if (err)
-						{
-							throw err;
-						}
-
-						output.should.be.equal(expectedWithDatailSummary);
-						done();
-					});
-				});
-			});
-		});
-
-	});
+            output.should.be.equal(expectedWithDatailSummary);
+            done();
+          });
+        });
+      });
+    });
+  });
 });

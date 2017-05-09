@@ -1,130 +1,98 @@
-/* jshint -W068 */
-
 /**
  * @description Unit tests standard formatter
  */
 
 'use strict';
 
-var csvFormat = require('../../..').csvFormatter,
-	Module = require('../../..').Module,
-	PackageSource = require('../../..').PackageSource,
-	FileSource = require('../../..').FileSource,
-	input = [],
-	mod,
-	path = require('path'),
-	expected;
+const csvFormat = require('../../..').csvFormatter;
+const Module = require('../../..').Module;
+const PackageSource = require('../../..').PackageSource;
+const FileSource = require('../../..').FileSource;
+const path = require('path');
 
-require('should'),
+const input = [];
+
+require('should');
 
 // input module
-mod = new Module('test@1.0.0', 'test', '1.0.0', '/dir/test');
+const mod = new Module('test@1.0.0', 'test', '1.0.0', '/dir/test');
 mod.licenseSources.package.add(new PackageSource('Apache'));
 mod.licenseSources.license.add(
-	new FileSource(path.join(__dirname, '../../fixtures/MIT')));
+  new FileSource(path.join(__dirname, '../../fixtures/MIT')));
 input.push(mod);
 
 
 // expected reponse
-expected = 'name,version,directory,repository,summary,from package.json,'
-	+ 'from license,from readme\n'
-	+ 'test,1.0.0,/dir/test,(none),Apache;MIT,Apache,MIT,';
+const expected = 'name,version,directory,repository,summary,from package.json,'
+  + 'from license,from readme\n'
+  + 'test,1.0.0,/dir/test,(none),Apache;MIT,Apache,MIT,';
 
-describe('csv formatter', function () {
+describe('csv formatter', () => {
+  describe('render method', () => {
+    describe('with no callback', () => {
+      it('should throw', () => {
+        mod.licenseSources.license.sources[0].read((err) => {
+          if (err) {
+            throw err;
+          }
 
-	describe('render method', function () {
+          (() => {
+            csvFormat.render(input);
+          }).should.throw();
+        });
+      });
+    });
 
-		describe('with no callback', function () {
-
-			it('should throw', function () {
-				
-				mod.licenseSources.license.sources[0].read(function (err) {
-					if (err) {
-						throw err;
-					}
-
-					(function () {
-						csvFormat.render(input);
-					}).should.throw();
-				});
-			});
-		});
-
-
-		describe('with no data', function () {
-
-			it('should return an error', function () {
-
-				csvFormat.render(undefined, {}, function (err) {
-
-					err.should.be.an.object;
-
-				});
-
-			});
-		});
+    describe('with no data', () => {
+      it('should return an error', () => {
+        csvFormat.render(undefined, {}, (err) => {
+          err.should.be.an.object;
+        });
+      });
+    });
 
 
-		describe('with badly typed data', function () {
+    describe('with badly typed data', () => {
+      it('should return an error', () => {
+        csvFormat.render(1, {}, (err) => {
+          err.should.be.an.object;
+        });
 
-			it('should return an error', function () {
+        csvFormat.render(true, {}, (err) => {
+          err.should.be.an.object;
+        });
 
-				csvFormat.render(1, {}, function (err) {
+        csvFormat.render('cats', {}, (err) => {
+          err.should.be.an.object;
+        });
+      });
+    });
 
-					err.should.be.an.object;
+    describe('with an empty array', () => {
+      it('should return an error', () => {
+        csvFormat.render([], {}, (err) => {
+          err.should.be.an.object;
+        });
+      });
+    });
 
-				});
+    describe('with good data', () => {
+      it('should return a record in the expected format', (done) => {
+        mod.licenseSources.license.sources[0].read((licenseErr) => {
+          if (licenseErr) {
+            throw licenseErr;
+          }
 
-				csvFormat.render(true, {}, function (err) {
+          csvFormat.render(input, {}, (renderErr, output) => {
+            if (renderErr) {
+              throw renderErr;
+            }
 
-					err.should.be.an.object;
-
-				});
-
-				csvFormat.render('cats', {}, function (err) {
-
-					err.should.be.an.object;
-
-				});
-
-			});
-		});
-
-
-		describe('with an empty array', function () {
-
-			it('should return an error', function () {
-
-				csvFormat.render([], {}, function (err) {
-
-					err.should.be.an.object;
-
-				});
-
-			});
-		});
-
-		describe('with good data', function () {
-
-			it('should return a record in the expected format', function (done) {
-
-				mod.licenseSources.license.sources[0].read(function (err) {
-					if (err) {
-						throw err;
-					}
-
-					csvFormat.render(input, {}, function (err, output) {
-
-						if (err)
-						{
-							throw err;
-						}
-
-						output.should.be.equal(expected);
-						done();
-					});
-				});
-			});
-		});
-	});
+            output.should.be.equal(expected);
+            done();
+          });
+        });
+      });
+    });
+  });
 });

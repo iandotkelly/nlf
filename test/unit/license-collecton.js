@@ -2,93 +2,76 @@
 
 /**
  * @description Unit tests for the license-find.js module
- * 
+ *
  * @@NLF-IGNORE@@
  */
 
 'use strict';
 
-var LicenseCollection = require('../..').LicenseCollection,
-	PackageSource = require('../..').PackageSource;
+const LicenseCollection = require('../..').LicenseCollection;
+const PackageSource = require('../..').PackageSource;
 
 require('should');
 
-describe('license-collection', function () {
+describe('license-collection', () => {
+  it('should be a function', () => {
+    LicenseCollection.should.be.a.function;
+  });
 
-	it('should be a function', function () {
-		LicenseCollection.should.be.a.function;
-	});
+  describe('the constructor', () => {
+    it('should return an object with an empty sources array', () => {
+      const col = new LicenseCollection();
+      col.sources.should.be.an.array;
+      col.sources.length.should.be.equal(0);
+    });
+  });
 
-	describe('the constructor', function () {
+  describe('the add method', () => {
+    it('should throw if the type is not an object', () => {
+      (() => {
+        const col = new LicenseCollection();
+        col.add();
+      }).should.throw();
 
-		it('should return an object with an empty sources array', function () {
-			var col = new LicenseCollection();
-			col.sources.should.be.an.array;
-			col.sources.length.should.be.equal(0);
-		});
+      (() => {
+        const col = new LicenseCollection();
+        col.add('cats');
+      }).should.throw();
+    });
 
-	});
+    it('should add an object', () => {
+      const col = new LicenseCollection();
 
-	describe('the add method', function () {
+      col.sources.length.should.be.equal(0);
+      col.add({ hello: 'cats' });
+      col.sources.length.should.be.equal(1);
+      col.sources[0].hello.should.be.equal('cats');
+    });
+  });
 
-		it('should throw if the type is not an object', function () {
+  describe('the summary function', () => {
+    describe('of an initialized object', () => {
+      it('should return an empty array', () => {
+        const col = new LicenseCollection();
+        const summary = col.summary();
 
-			(function () {
-				var col = new LicenseCollection();
-				col.add();
-			}).should.throw();
+        summary.should.be.an.array;
+        summary.length.should.be.equal(0);
+      });
+    });
 
-			(function () {
-				var col = new LicenseCollection();
-				col.add('cats');
-			}).should.throw();
+    describe('when a source has been added', () => {
+      it('should return license names', () => {
+        const col = new LicenseCollection();
+        const licenseSource = new PackageSource('MIT');
 
-		});
+        col.add(licenseSource);
 
-		it('should add an object', function () {
+        const summary = col.summary();
 
-			var col = new LicenseCollection();
-
-			col.sources.length.should.be.equal(0);
-			col.add({ hello: 'cats'});
-			col.sources.length.should.be.equal(1);
-			col.sources[0].hello.should.be.equal('cats');
-		});
-
-	});
-
-	describe('the summary function', function () {
-
-		describe('of an initialized object', function () {
-
-			it('should return an empty array', function () {
-
-				var col = new LicenseCollection(), summary;
-
-				summary = col.summary();
-
-				summary.should.be.an.array;
-				summary.length.should.be.equal(0);
-			});
-
-		});
-
-		describe('when a source has been added', function () {
-			
-			it('should return license names', function () {
-
-				var col = new LicenseCollection(),
-					licenseSource = new PackageSource('MIT'),
-					summary;
-
-				col.add(licenseSource);
-
-				summary = col.summary();
-
-				summary.length.should.be.equal(1);
-				summary[0].should.be.equal('MIT');
-			});
-		});
-	});
-
+        summary.length.should.be.equal(1);
+        summary[0].should.be.equal('MIT');
+      });
+    });
+  });
 });

@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+/* eslint no-console: "off" */
+
 /**
  *
  * @description cli for nlf
@@ -13,48 +15,44 @@
 
 'use strict';
 
-var program = require('commander'),
-	pjson = require('../package.json'),
-	nlf = require('../lib/nlf'),
-	format = require('../lib/formatters/standard'),
-	options = {
-		directory: process.cwd()
-	};
+const program = require('commander');
+const pjson = require('../package.json');
+const nlf = require('../lib/nlf');
+const standardFormatter = require('../lib/formatters/standard');
+const csvFormatter = require('../lib/formatters/csv');
+
+const options = {
+  directory: process.cwd(),
+};
 
 program
-	.version(pjson.version)
-	.option('-d, --no-dev', 'exclude development dependencies')
-	.option('-s, --summary <mode>', 'summary (not available in csv format): off | simple (default) | detail', /^(off|simple|detail)$/i, 'simple')
-	.option('-c, --csv', 'output in csv format')
-	.option('-r, --reach [num]', 'package depth (reach)', parseInt, Infinity)
-	.parse(process.argv);
+  .version(pjson.version)
+  .option('-d, --no-dev', 'exclude development dependencies')
+  .option('-s, --summary <mode>', 'summary (not available in csv format): off | simple (default) | detail', /^(off|simple|detail)$/i, 'simple')
+  .option('-c, --csv', 'output in csv format')
+  .option('-r, --reach [num]', 'package depth (reach)', parseInt, Infinity)
+  .parse(process.argv);
 
 options.production = !program.dev;
 options.depth = program.reach;
 options.summaryMode = program.summary;
 
 // select which formatter
-if (program.csv) {
-	format = require('../lib/formatters/csv');
-} else {
-	format = require('../lib/formatters/standard');
-}
+const format = program.csv ? csvFormatter : standardFormatter;
 
-nlf.find(options, function (err, data) {
+nlf.find(options, (err, data) => {
+  if (err) {
+    console.error(err);
+    process.exit(1);
+  }
 
-	if (err) {
-		console.error(err);
-		process.exit(1);
-	}
-
-	if (data && data.length > 0) {
-		format.render(data, options, function (err, output) {
-			if (err) {
-				console.error(err);
-				process.exit(1);
-			}
-			console.log(output);
-		});
-	}
-
+  if (data && data.length > 0) {
+    format.render(data, options, (renderErr, output) => {
+      if (renderErr) {
+        console.error(renderErr);
+        process.exit(1);
+      }
+      console.log(output);
+    });
+  }
 });
