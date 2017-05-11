@@ -31,14 +31,12 @@ describe('csv formatter', () => {
   describe('render method', () => {
     describe('with no callback', () => {
       it('should throw', () => {
-        mod.licenseSources.license.sources[0].read((err) => {
-          if (err) {
-            throw err;
-          }
-
+        mod.licenseSources.license.sources[0].read().then(() => {
           (() => {
             csvFormat.render(input);
           }).should.throw();
+        }).catch((err) => {
+          throw err;
         });
       });
     });
@@ -78,19 +76,13 @@ describe('csv formatter', () => {
 
     describe('with good data', () => {
       it('should return a record in the expected format', (done) => {
-        mod.licenseSources.license.sources[0].read((licenseErr) => {
-          if (licenseErr) {
-            throw licenseErr;
-          }
-
+        mod.licenseSources.license.sources[0].read().then(() => {
           csvFormat.render(input, {}, (renderErr, output) => {
-            if (renderErr) {
-              throw renderErr;
-            }
-
             output.should.be.equal(expected);
             done();
           });
+        }).catch((err) => {
+          throw err;
         });
       });
     });

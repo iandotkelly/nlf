@@ -40,7 +40,7 @@ describe('FileSource', () => {
 
     beforeEach((done) => {
       source = new FileSource(path.join(__dirname, '../fixtures/MIT'));
-      source.read(done);
+      source.read().then(done);
     });
 
     it('should contain the MIT text', () => {
@@ -58,7 +58,9 @@ describe('FileSource', () => {
   describe('read() with a bad filename', () => {
     it('will return an error', (done) => {
       const source = new FileSource(path.join(__dirname, '../fixtures/CATS'));
-      source.read((err) => {
+      source.read().then(() => {
+        throw new Error('should not reach here');
+      }).catch((err) => {
         err.should.be.an.object;
         done();
       });

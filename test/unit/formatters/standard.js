@@ -100,47 +100,40 @@ describe('standard formatter', () => {
     });
 
     it('should return a record in the expected format', (done) => {
-      mod.licenseSources.license.sources[0].read((licenseErr) => {
-        if (licenseErr) {
-          throw licenseErr;
-        }
-
-        mod.licenseSources.readme.sources[0].read((readmeErr) => {
-          if (readmeErr) {
-            throw readmeErr;
+      mod.licenseSources.license.sources[0].read()
+      .then(() => {
+        mod.licenseSources.readme.sources[0].read()
+      .then(() => {
+        standardFormat.render(input, { summaryMode: 'simple' }, (renderErr, output) => {
+          if (renderErr) {
+            throw renderErr;
           }
 
-          standardFormat.render(input, { summaryMode: 'simple' }, (renderErr, output) => {
-            if (renderErr) {
-              throw renderErr;
-            }
-
-            output.should.be.equal(expected);
-            done();
-          });
+          output.should.be.equal(expected);
+          done();
         });
+      }).catch((err) => {
+        throw err;
+      });
       });
     });
 
     it('should return detail summary', (done) => {
-      mod.licenseSources.license.sources[0].read((licenseErr) => {
-        if (licenseErr) {
-          throw licenseErr;
-        }
-
-        mod.licenseSources.readme.sources[0].read((readmeErr) => {
-          if (readmeErr) {
-            throw readmeErr;
+      mod.licenseSources.license.sources[0].read()
+      .then(() => {
+        mod.licenseSources.readme.sources[0].read()
+      .then(() => {
+        standardFormat.render(input, { summaryMode: 'detail' }, (renderErr, output) => {
+          if (renderErr) {
+            throw renderErr;
           }
-          standardFormat.render(input, { summaryMode: 'detail' }, (renderErr, output) => {
-            if (renderErr) {
-              throw renderErr;
-            }
 
-            output.should.be.equal(expectedWithDatailSummary);
-            done();
-          });
+          output.should.be.equal(expectedWithDatailSummary);
+          done();
         });
+      });
+      }).catch((err) => {
+        throw err;
       });
     });
   });
