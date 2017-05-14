@@ -114,18 +114,26 @@ LICENSES:
 ```javascript
 const nlf = require('nlf');
 
-nlf.find({ directory: '/User/me/my-project' }, (err, data) => {
+nlf.find({ directory: '/User/me/my-project' })
+.then((data) => {
   // do something with the response object.
   console.log(JSON.stringify(data));
+})
+.catch((err) => {
+  // do something with the error
 });
 
 // to only include production dependencies
 nlf.find({
   directory: '/User/me/my-project',
   production: true
-}, (err, data) => {
+})
+.then((data) => {
   // do something with the response object.
   console.log(JSON.stringify(data));
+})
+.catch((err) => {
+  // do something with the error
 });
 
 ```
