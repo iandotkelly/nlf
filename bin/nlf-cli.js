@@ -40,12 +40,8 @@ options.summaryMode = program.summary;
 // select which formatter
 const format = program.csv ? csvFormatter : standardFormatter;
 
-nlf.find(options, (err, data) => {
-  if (err) {
-    console.error(err);
-    process.exit(1);
-  }
-
+nlf.find(options)
+.then((data) => {
   if (data && data.length > 0) {
     format.render(data, options, (renderErr, output) => {
       if (renderErr) {
@@ -55,4 +51,8 @@ nlf.find(options, (err, data) => {
       console.log(output);
     });
   }
+})
+.catch((err) => {
+  console.error(err);
+  process.exit(1);
 });
