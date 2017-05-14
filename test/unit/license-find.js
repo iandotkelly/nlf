@@ -12,7 +12,7 @@ require('should');
 
 describe('license-find', () => {
   it('should be a function', () => {
-    licenseFind.should.be.a.function;
+    licenseFind.should.be.a.Function();
   });
 
   describe('with GPL text', () => {

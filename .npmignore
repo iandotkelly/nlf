@@ -1,2 +1,4 @@
 test/
-.jshintrc
+.eslintrc.js
+.gitignore
+.travis.yml

@@ -11,7 +11,7 @@ require('should');
 describe('PackageSource', () => {
   describe('constructor', () => {
     it('should be a method', () => {
-      PackageSource.should.be.a.function;
+      PackageSource.should.be.a.Function();
     });
 
     it('which throws exception with no argument', () => {

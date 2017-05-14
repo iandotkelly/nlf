@@ -1,5 +1,3 @@
-/* jshint -W068 */
-
 /**
  * @description Unit tests for the license-find.js module
  *
@@ -15,7 +13,7 @@ require('should');
 
 describe('license-collection', () => {
   it('should be a function', () => {
-    LicenseCollection.should.be.a.function;
+    LicenseCollection.should.be.a.Function();
   });
 
   describe('the constructor', () => {

@@ -1,5 +1,3 @@
-/* jshint -W068, -W031 */
-
 /**
  * @description Unit tests for the file-source.js module
  */
@@ -17,7 +15,7 @@ require('should');
 describe('FileSource', () => {
   describe('constructor', () => {
     it('should be a method', () => {
-      FileSource.should.be.a.function;
+      FileSource.should.be.a.Function();
     });
 
     it('which throws exception with no path', () => {

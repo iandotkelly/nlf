@@ -23,7 +23,7 @@ fakeGplFile.text = 'blah GPL blah';
 describe('Module', () => {
   describe('constructor', () => {
     it('should be a method', () => {
-      Module.should.be.a.function;
+      Module.should.be.a.Function();
     });
 
     it('with sensible parameters should return an object', () => {
