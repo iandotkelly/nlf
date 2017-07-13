@@ -21,11 +21,10 @@ nlf can be used programmatically, or from the command line.
 
 ## Options
 
-- `directory` (String) - where to look
-- `production` (Boolean) (Default:false) - only traverse dependencies, no dev-dependencies
-- `depth` (Number) (Default: Infinity) - how deep to traverse packages where 0 is the current package.json only
-- `summaryMode` (String: off|simple|detail) (Default: simple)
-
+- `-c`, `--csv` (Default:false) - output in csv format
+- `-d`, `--no-dev` (Default:false) - exclude development dependencies
+- `-r`, `--reach` (Default: Infinity) - package depth (reach), 0 is current package.json file only
+- `-s`, `--summary off|simple|detail` (Default: simple) - summary information, not available in csv format
 
 ### CLI
 
