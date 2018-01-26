@@ -16,12 +16,12 @@
   "dependencies": {
     "archy": "1.0.0",
     "commander": "2.13.0",
-    "compare-versions": "3.0.1",
+    "compare-versions": "3.1.0",
     "glob-all": "3.1.0",
     "snyk-resolve-deps": "1.8.1"
   },
   "devDependencies": {
-    "coveralls": "^2.13.1",
+    "coveralls": "^3.0.0",
     "gulp": "^3.9.0",
     "gulp-jshint": "^2.0.0",
     "gulp-mocha": "^5.0.0",
