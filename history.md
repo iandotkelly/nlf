@@ -1,3 +1,8 @@
+2.0.1 (January 25, 2018)
+====================
+
+* Update dependencies and add travis tests for node 8 and node 9
+
 2.0.0 (May 6, 2017)
 ====================
 
