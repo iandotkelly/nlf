@@ -152,7 +152,7 @@ The data returned from find() is an array of modules, each of which is represent
         {
           "filePath": "\/Users\/ian\/Personal\/example\/LICENSE",
           "text": "the text of the license file",
-          "name": function() { // function that returns the name of the license if known }
+          "names": function() { // function that returns the name of the license if known }
         }
       ]
     },
@@ -161,7 +161,7 @@ The data returned from find() is an array of modules, each of which is represent
         {
           "filePath": "\/Users\/ian\/Personal\/example\/readme.md",
           "text": "text of the readme"
-          "name": function() { // function that returns the name of the license if known }
+          "names": function() { // function that returns the name of the license if known }
         }
       ]
     }
