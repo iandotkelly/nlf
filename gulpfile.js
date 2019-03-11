@@ -42,5 +42,5 @@ gulp.task('coveralls', shell.task([
 	'./node_modules/.bin/nyc report --reporter=text-lcov | coveralls'
 ]));
 
-gulp.task('default', ['lint', 'test']);
-gulp.task('travis', ['lint', 'test']);
+gulp.task('default', gulp.series(['lint', 'test']));
+gulp.task('travis', gulp.series(['lint', 'test']));
