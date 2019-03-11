@@ -1,3 +1,9 @@
+2.1.0 (March 10, 2019)
+===================
+
+* Handle package.json declaring repository as a string (thanks @bertfroeba)
+* Update dependencies
+
 2.0.1 (January 25, 2018)
 ====================
 
