@@ -75,6 +75,17 @@ describe('Module', function () {
 			myModule.repository.should.be.equal('http://myhost/myrepo');
 		});
 
+		it('should remove .git postfix only from repository URL',
+			function () {
+			var myModule = new Module(
+				'my-module@1.0.0',
+				undefined,
+				undefined,
+				'/my/dir',
+				'http://www.github.com/myrepo.git');
+			myModule.repository.should.be.equal('http://www.github.com/myrepo');
+		});
+
 		it('with no name should throw an exception', function () {
 			(function () {
 				new Module(undefined, undefined, undefined, '/my/dir');
