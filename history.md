@@ -1,7 +1,12 @@
+2.1.1 (March 11, 2019)
+===================
+
+* Fix issue where github.com repository URLs are mangled (thanks @TheSpyder #56)
+
 2.1.0 (March 10, 2019)
 ===================
 
-* Handle package.json declaring repository as a string (thanks @bertfroeba)
+* Handle package.json declaring repository as a string (thanks @bertfroeba #51)
 * Update dependencies
 
 2.0.1 (January 25, 2018)
