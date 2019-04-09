@@ -37,20 +37,22 @@ describe('Module', function () {
 			myObject.should.be.an.object;
 		});
 
-		it('should set the name, version, directory, repository and type',
+		it('should set the name, version, directory, repository, type and author',
 			function () {
 			var myModule = new Module('my-module@1.0.0',
 				'my-module',
 				'1.0.0',
 				'/my/dir',
 				'https://myhost/myrepo',
-				'development');
+				'development',
+				'some author');
 			myModule.id.should.be.equal('my-module@1.0.0');
 			myModule.name.should.be.equal('my-module');
 			myModule.version.should.be.equal('1.0.0');
 			myModule.directory.should.be.equal('/my/dir');
 			myModule.repository.should.be.equal('https://myhost/myrepo');
 			myModule.type.should.be.equal('development');
+			myModule.author.should.be.equal('some author');
 		});
 
 		it('should remove git prefix from repository URL',

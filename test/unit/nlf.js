@@ -14,6 +14,7 @@ var licenseObjectDir = path.join(__dirname, '../fixtures/license-object');
 var licensesObjectDir = path.join(__dirname, '../fixtures/licenses-object');
 var licensesStringDir = path.join(__dirname, '../fixtures/licenses-string');
 var missingName = path.join(__dirname, '../fixtures/missing-name');
+var author = path.join(__dirname, '../fixtures/author');
 
 describe('nlf', function () {
 
@@ -385,6 +386,25 @@ describe('nlf', function () {
 						sources[0].license.should.eql('MIT');
 						done();
 					});
+			});
+		});
+
+		describe('with an author field', function () {
+
+			it('should display author field', function(done) {
+   
+				nlf.find(
+					{
+						directory: author
+					},
+					function (err, results) {
+						if (err) {
+							throw err;
+						}
+						results[0].author.should.be.equal('Ian Kelly <iandotkelly@gmail.com>');
+						done();
+					}
+				);
 			});
 		});
 
