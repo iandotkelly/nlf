@@ -17,16 +17,16 @@ var csvFormat = require('../../..').csvFormatter,
 
 require('should'),
 
-	// input module
-	mod = new Module(
-		'test@1.0.0',
-		'test',
-		'1.0.0',
-		'/dir/test',
-		'',
-		'',
-		{ name: 'author', email: 'email', url: 'url' }
-	);
+// input module
+mod = new Module(
+	'test@1.0.0',
+	'test',
+	'1.0.0',
+	'/dir/test',
+	'',
+	'',
+	{ name: 'author', email: 'email', url: 'url' }
+);
 mod.licenseSources.package.add(new PackageSource('Apache'));
 mod.licenseSources.license.add(
 	new FileSource(path.join(__dirname, '../../fixtures/MIT')));
