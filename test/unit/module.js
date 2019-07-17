@@ -86,6 +86,17 @@ describe('Module', function () {
 			myModule.repository.should.be.equal('http://www.github.com/myrepo');
 		});
 
+		it('should handle object as repository',
+			function () {
+			var myModule = new Module(
+				'my-module@1.0.0',
+				undefined,
+				undefined,
+				'/my/dir',
+				{type: 'git', url: 'git+https://myhost/myrepo.git'});
+			myModule.repository.should.be.equal('https://myhost/myrepo');
+		});
+
 		it('with no name should throw an exception', function () {
 			(function () {
 				new Module(undefined, undefined, undefined, '/my/dir');
