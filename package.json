@@ -18,7 +18,7 @@
     "commander": "2.19.0",
     "compare-versions": "3.4.0",
     "glob-all": "3.1.0",
-    "snyk-resolve-deps": "4.0.2"
+    "snyk-resolve-deps": "4.4.1"
   },
   "devDependencies": {
     "coveralls": "3.0.3",
