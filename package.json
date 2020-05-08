@@ -17,7 +17,7 @@
     "archy": "1.0.0",
     "commander": "2.19.0",
     "compare-versions": "3.4.0",
-    "glob-all": "3.1.0",
+    "glob-all": "^3.2.1",
     "snyk-resolve-deps": "4.0.2"
   },
   "devDependencies": {
