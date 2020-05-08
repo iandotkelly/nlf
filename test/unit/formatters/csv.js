@@ -18,7 +18,15 @@ var csvFormat = require('../../..').csvFormatter,
 require('should'),
 
 // input module
-mod = new Module('test@1.0.0', 'test', '1.0.0', '/dir/test');
+mod = new Module(
+	'test@1.0.0',
+	'test',
+	'1.0.0',
+	'/dir/test',
+	'',
+	'',
+	'some author'
+);
 mod.licenseSources.package.add(new PackageSource('Apache'));
 mod.licenseSources.license.add(
 	new FileSource(path.join(__dirname, '../../fixtures/MIT')));
@@ -27,8 +35,8 @@ input.push(mod);
 
 // expected reponse
 expected = 'name,version,directory,repository,summary,from package.json,'
-	+ 'from license,from readme\n'
-	+ 'test,1.0.0,/dir/test,(none),Apache;MIT,Apache,MIT,';
+	+ 'from license,from readme,author\n'
+	+ 'test,1.0.0,/dir/test,(none),Apache;MIT,Apache,MIT,,some author';
 
 describe('csv formatter', function () {
 
@@ -37,7 +45,7 @@ describe('csv formatter', function () {
 		describe('with no callback', function () {
 
 			it('should throw', function () {
-				
+
 				mod.licenseSources.license.sources[0].read(function (err) {
 					if (err) {
 						throw err;
@@ -104,6 +112,35 @@ describe('csv formatter', function () {
 			});
 		});
 
+		describe('with author as object', function () {
+			it('should return stringified author object', function (done) {
+				var withAuthorObj = new Module(
+					'test@1.0.0',
+					'test',
+					'1.0.0',
+					'/dir/test',
+					'',
+					'',
+					{ name: 'name', email: 'email', url: 'url' }
+				);
+				withAuthorObj.licenseSources.package.add(new PackageSource('Apache'));
+				withAuthorObj.licenseSources.license.add(
+					new FileSource(path.join(__dirname, '../../fixtures/MIT'))
+				);
+
+				var expectedOutput = '' +
+					'name,version,directory,repository,summary,from package.json,'
+					+ 'from license,from readme,author\n'
+					+ 'test,1.0.0,/dir/test,(none),Apache;MIT,Apache,MIT,,name email url';
+				withAuthorObj.licenseSources.license.sources[0].read(function () {
+					csvFormat.render([withAuthorObj], {}, function (err, output) {
+						output.should.be.equal(expectedOutput);
+						done();
+					});
+				});
+			});
+		});
+
 		describe('with good data', function () {
 
 			it('should return a record in the expected format', function (done) {
@@ -115,8 +152,7 @@ describe('csv formatter', function () {
 
 					csvFormat.render(input, {}, function (err, output) {
 
-						if (err)
-						{
+						if (err) {
 							throw err;
 						}
 
