@@ -14,21 +14,17 @@
     "url": "git://github.com/iandotkelly/nlf.git"
   },
   "dependencies": {
-    "archy": "1.0.0",
-    "commander": "2.19.0",
-    "compare-versions": "3.4.0",
-    "glob-all": "^3.2.1",
-    "snyk-resolve-deps": "4.0.2"
+    "archy": "^1.0.0",
+    "commander": "^9.4.1",
+    "compare-versions": "^5.0.1",
+    "glob-all": "^3.3.1",
+    "snyk-resolve-deps": "^4.7.3"
   },
   "devDependencies": {
-    "coveralls": "3.0.3",
-    "gulp": "^4.0.0",
-    "gulp-jshint": "^2.1.0",
-    "gulp-mocha": "^6.0.0",
-    "gulp-shell": "^0.7.0",
-    "jshint": "2.10.1",
-    "nyc": "13.3.0",
-    "should": "13.2.3"
+    "chai": "^4.3.7",
+    "coveralls": "3.1.1",
+    "nyc": "^15.1.0",
+    "standard": "^17.0.0"
   },
   "engines": {
     "node": ">=4"
@@ -44,7 +40,11 @@
     "cli"
   ],
   "scripts": {
-    "test": "gulp travis"
+    "lint": "standard",
+    "pretest": "npm run lint",
+    "test": "mocha \"./test/unit/**/*.js\"",
+    "coverage": "nyc --reporter=html npm test",
+    "coveralls": "nyc --reporter=text-lcov npm test | coveralls"
   },
   "nyc": {
     "exclude": [

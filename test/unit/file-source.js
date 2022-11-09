@@ -1,73 +1,63 @@
-/* jshint -W068, -W031 */
+/* eslint-env mocha, node */
 
 /**
  * @description Unit tests for the file-source.js module
  */
 
-'use strict';
+'use strict'
 
-var FileSource = require('../..').FileSource,
-	path = require('path'),
-	fs = require('fs'),
-	mitFile = fs.readFileSync(path.join(__dirname, '../fixtures/MIT'), 'utf-8');
-
-require('should');
+const FileSource = require('../..').FileSource
+const path = require('path')
+const fs = require('fs')
+const mitFile = fs.readFileSync(path.join(__dirname, '../fixtures/MIT'), 'utf-8')
+const { assert } = require('chai')
 
 describe('FileSource', function () {
+  describe('constructor', function () {
+    it('should be a method', function () {
+      assert.isFunction(FileSource)
+    })
 
-	describe('constructor', function () {
+    it('which throws exception with no path', function () {
+      assert.throws(() => new FileSource())
+    })
 
-		it('should be a method', function () {
-			FileSource.should.be.a.function;
-		});
+    it('which should create an initialized object with a path parameter',
+      function () {
+        const source = new FileSource('/dir/filename')
+        assert.strictEqual(source.filePath, '/dir/filename')
+        assert.strictEqual(source.text, '')
+        assert.strictEqual(source.names().length, 0)
+      })
+  })
 
-		it('which throws exception with no path', function () {
-			(function () {
-				new FileSource();
-			}).should.throw();
-		});
+  describe('read an MIT license', function () {
+    let source
 
-		it('which should create an initialized object with a path parameter',
-			function () {
-			var source = new FileSource('/dir/filename');
-			source.filePath.should.be.equal('/dir/filename');
-			source.text.should.be.equal('');
-			source.names().length.should.be.equal(0);
-		});
+    beforeEach(function (done) {
+      source = new FileSource(path.join(__dirname, '../fixtures/MIT'))
+      source.read(done)
+    })
 
-	});
+    it('should contain the MIT text', function () {
+      assert.notStrictEqual(source, '')
+      assert.strictEqual(source.text, mitFile)
+    })
 
-	describe('read an MIT license', function () {
+    it('should detect an MIT license only', function () {
+      const licenses = source.names()
+      assert.strictEqual(licenses.length, 1)
+      assert.strictEqual(licenses[0], 'MIT')
+    })
+  })
 
-		var source;
-
-		beforeEach(function (done) {
-			source = new FileSource(path.join(__dirname, '../fixtures/MIT'));
-			source.read(done);
-		});
-
-		it('should contain the MIT text', function () {
-			source.text.should.not.be.equal('');
-			source.text.should.be.equal(mitFile);
-		});
-
-		it('should detect an MIT license only', function () {
-			var licenses = source.names();
-			licenses.length.should.be.equal(1);
-			licenses[0].should.be.equal('MIT');
-		});
-	});
-
-	describe('read() with a bad filename', function () {
-
-		it('will return an error', function (done) {
-			var source = new FileSource(path.join(__dirname, '../fixtures/CATS'));
-			source.read(function (err) {
-				err.should.be.an.object;
-				done();
-			});
-		});
-
-	});
-
-});
+  describe('read() with a bad filename', function () {
+    it('will return an error', function (done) {
+      const source = new FileSource(path.join(__dirname, '../fixtures/CATS'))
+      source.read(function (err) {
+        assert.isDefined(err)
+        done()
+      })
+    })
+  })
+})
