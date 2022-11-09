@@ -1,11 +1,10 @@
 language: node_js
+env:
+  COVERALLS_REPO_TOKEN=rCIR66aQA8jUA7Berlh1PHd917mjMt4hU #TODO: put it in private config of the repo
 node_js:
-  - "9"
-  - "8"
-  - "7"
-  - "6"
-  - "4"
-before_install:
-  - npm install -g gulp@4.0.0
+  - "19"
+  - "18"
+  - "16"
+  - "14"
 after_success:
-  - gulp coveralls
+  - npm run coveralls

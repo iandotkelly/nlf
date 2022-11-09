@@ -1,183 +1,143 @@
-/* jshint -W068, -W100 */
+/* eslint-env mocha, node */
 
 /**
  * @description Unit tests standard formatter
  */
 
-'use strict';
+'use strict'
 
-
-var standardFormat = require('../../..').standardFormatter,
-	Module = require('../../..').Module,
-	PackageSource = require('../../..').PackageSource,
-	FileSource = require('../../..').FileSource,
-	input = [],
-	mod,
-	path = require('path'),
-	expectedWithDatailSummary,
-	expected;
-
-require('should');
+const standardFormat = require('../../..').standardFormatter
+const Module = require('../../..').Module
+const PackageSource = require('../../..').PackageSource
+const FileSource = require('../../..').FileSource
+const input = []
+const path = require('path')
+const { assert } = require('chai')
 
 // input module
-mod = new Module('test@1.0.0', 'test', '1.0.0', '/dir/test');
-mod.licenseSources.package.add(new PackageSource('Apache'));
+const mod = new Module('test@1.0.0', 'test', '1.0.0', '/dir/test')
+mod.licenseSources.package.add(new PackageSource('Apache'))
 mod.licenseSources.license.add(
-	new FileSource(path.join(__dirname, '../../fixtures/MIT')));
+  new FileSource(path.join(__dirname, '../../fixtures/MIT')))
 mod.licenseSources.readme.add(
-	new FileSource(path.join(__dirname, '../../fixtures/MIT')));
-input.push(mod);
+  new FileSource(path.join(__dirname, '../../fixtures/MIT')))
+input.push(mod)
 
 // expected reponse
-expected = 'test@1.0.0 [license(s): Apache, MIT]\n'
-	+ '├── package.json:  Apache\n'
-	+ '├── license files: MIT\n'
-	+ '└── readme files: MIT\n\n'
-	+ 'LICENSES: Apache, MIT\n';
+const expected = `test@1.0.0 [license(s): Apache, MIT]
+├── package.json:  Apache
+├── license files: MIT
+└── readme files: MIT
 
-expectedWithDatailSummary = 'test@1.0.0 [license(s): Apache, MIT]\n'
-	+ '├── package.json:  Apache\n'
-	+ '├── license files: MIT\n'
-	+ '└── readme files: MIT\n\n'
-	+ 'LICENSES:\n'
-	+ '├─┬ Apache\n'
-	+ '│ └── test@1.0.0\n'
-	+ '└─┬ MIT\n'
-	+ '  └── test@1.0.0\n';
+LICENSES: Apache, MIT
+`
+const expectedWithDetailSummary = `test@1.0.0 [license(s): Apache, MIT]
+├── package.json:  Apache
+├── license files: MIT
+└── readme files: MIT
 
+LICENSES:
+├─┬ Apache
+│ └── test@1.0.0
+└─┬ MIT
+  └── test@1.0.0
+`
 describe('standard formatter', function () {
+  describe('render method', function () {
+    describe('with no callback', function () {
+      it('should throw', function () {
+        mod.licenseSources.license.sources[0].read(function (err) {
+          if (err) {
+            throw err
+          }
 
-	describe('render method', function () {
+          mod.licenseSources.readme.sources[0].read(function (err) {
+            if (err) {
+              throw err
+            }
 
-		describe('with no callback', function () {
+            assert.throws(() => standardFormat.render(input))
+          })
+        })
+      })
+    })
 
-			it('should throw', function () {
+    describe('with no data', function () {
+      it('should return an error', function () {
+        standardFormat.render(undefined, {}, function (err) {
+          assert.isDefined(err)
+        })
+      })
+    })
 
-				mod.licenseSources.license.sources[0].read(function (err) {
-					if (err) {
-						throw err;
-					}
+    describe('with badly typed data', function () {
+      it('should return an error', function () {
+        standardFormat.render(1, {}, function (err) {
+          assert.isDefined(err)
+        })
 
-					mod.licenseSources.readme.sources[0].read(function (err) {
-						if (err) {
-							throw err;
-						}
+        standardFormat.render(true, {}, function (err) {
+          assert.isDefined(err)
+        })
 
-						(function () {
-							standardFormat.render(input);
-						}).should.throw();
+        standardFormat.render('cats', {}, function (err) {
+          assert.isDefined(err)
+        })
+      })
+    })
 
-					});
-				});
-			});
-		});
+    describe('with an empty array', function () {
+      it('should return an error', function () {
+        standardFormat.render([], {}, function (err) {
+          assert.isDefined(err)
+        })
+      })
+    })
 
+    it('should return a record in the expected format', function (done) {
+      mod.licenseSources.license.sources[0].read(function (err) {
+        if (err) {
+          throw err
+        }
 
-		describe('with no data', function () {
+        mod.licenseSources.readme.sources[0].read(function (err) {
+          if (err) {
+            throw err
+          }
+          standardFormat.render(input, { summaryMode: 'simple' },
+            function (err, output) {
+              if (err) {
+                throw err
+              }
 
-			it('should return an error', function () {
+              assert.strictEqual(output, expected)
+              done()
+            })
+        })
+      })
+    })
 
-				standardFormat.render(undefined, {}, function (err) {
+    it('should return detail summary', function (done) {
+      mod.licenseSources.license.sources[0].read(function (err) {
+        if (err) {
+          throw err
+        }
 
-					err.should.be.an.object;
+        mod.licenseSources.readme.sources[0].read(function (err) {
+          if (err) {
+            throw err
+          }
+          standardFormat.render(input, { summaryMode: 'detail' },
+            function (err, output) {
+              if (err) {
+                throw err
+              }
 
-				});
-
-			});
-		});
-
-
-		describe('with badly typed data', function () {
-
-			it('should return an error', function () {
-
-				standardFormat.render(1, {}, function (err) {
-
-					err.should.be.an.object;
-
-				});
-
-				standardFormat.render(true, {}, function (err) {
-
-					err.should.be.an.object;
-
-				});
-
-				standardFormat.render('cats', {}, function (err) {
-
-					err.should.be.an.object;
-
-				});
-
-			});
-		});
-
-
-		describe('with an empty array', function () {
-
-			it('should return an error', function () {
-
-				standardFormat.render([], {}, function (err) {
-
-					err.should.be.an.object;
-
-				});
-
-			});
-		});
-
-
-		it('should return a record in the expected format', function (done) {
-
-			mod.licenseSources.license.sources[0].read(function (err) {
-				if (err) {
-					throw err;
-				}
-
-				mod.licenseSources.readme.sources[0].read(function (err) {
-					if (err) {
-						throw err;
-					}
-					standardFormat.render(input, {summaryMode: 'simple'}, 
-					  function (err, output) {
-
-						if (err)
-						{
-							throw err;
-						}
-
-						output.should.be.equal(expected);
-						done();
-					});
-				});
-			});
-		});
-
-		it('should return detail summary', function (done) {
-
-			mod.licenseSources.license.sources[0].read(function (err) {
-				if (err) {
-					throw err;
-				}
-
-				mod.licenseSources.readme.sources[0].read(function (err) {
-					if (err) {
-						throw err;
-					}
-					standardFormat.render(input, {summaryMode: 'detail'}, 
-					  function (err, output) {
-
-						if (err)
-						{
-							throw err;
-						}
-
-						output.should.be.equal(expectedWithDatailSummary);
-						done();
-					});
-				});
-			});
-		});
-
-	});
-});
+              assert.strictEqual(output, expectedWithDetailSummary)
+              done()
+            })
+        })
+      })
+    })
+  })
+})

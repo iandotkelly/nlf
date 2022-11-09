@@ -1,60 +1,53 @@
-/* jshint -W031, -W068 */
-
+/* eslint-env mocha, node */
 /**
  * @description Unit tests for the package-source.js module
  */
 
-'use strict';
+'use strict'
 
-var PackageSource = require('../..').PackageSource;
+const PackageSource = require('../..').PackageSource
 
-require('should');
+require('should')
+const { assert } = require('chai')
 
 describe('PackageSource', function () {
+  describe('constructor', function () {
+    it('should be a method', function () {
+      assert.isFunction(PackageSource)
+    })
 
-	describe('constructor', function () {
+    it('which throws exception with no argument', function () {
+      assert.throws(() =>
+        new PackageSource()
+      )
+    })
 
-		it('should be a method', function () {
-			PackageSource.should.be.a.function;
-		});
+    it('which should create an initialized object with a string parameter',
+      function () {
+        const source = new PackageSource('MIT')
+        assert.strictEqual(source.license, 'MIT')
+        assert.strictEqual(source.url, '(none)')
+      })
 
-		it('which throws exception with no argument', function () {
-			(function () {
-				new PackageSource();
-			}).should.throw();
-		});
+    it('and should create an initialized object with an object parameter',
+      function () {
+        const licenseObject = {
+          type: 'MIT',
+          url: 'http://opensource.org/licenses/MIT'
+        }
+        const source = new PackageSource(licenseObject)
+        assert.strictEqual(source.license, 'MIT')
+        assert.strictEqual(source.url, 'http://opensource.org/licenses/MIT')
+      })
+  })
 
-		it('which should create an initialized object with a string parameter',
-			function () {
-			var source = new PackageSource('MIT');
-			source.license.should.be.equal('MIT');
-			source.url.should.be.equal('(none)');
-		});
-
-
-		it('and should create an initialized object with an object parameter',
-			function () {
-			var licenseObject, source;
-			licenseObject = {
-				type: 'MIT',
-				url: 'http://opensource.org/licenses/MIT'
-			},
-			source = new PackageSource(licenseObject);
-			source.license.should.be.equal('MIT');
-			source.url.should.be.equal('http://opensource.org/licenses/MIT');
-		});
-	});
-
-	describe('licenses method', function () {
-
-		it('should return the license name wrapped in an Array', function () {
-			var source = new PackageSource('MIT'),
-				licenses = source.names();
-			licenses.should.be.an.array;
-			licenses.length.should.be.equal(1);
-			licenses[0].should.be.equal('MIT');
-		});
-
-	});
-
-});
+  describe('licenses method', function () {
+    it('should return the license name wrapped in an Array', function () {
+      const source = new PackageSource('MIT')
+      const licenses = source.names()
+      assert.isArray(licenses)
+      assert.strictEqual(licenses.length, 1)
+      assert.strictEqual(licenses[0], 'MIT')
+    })
+  })
+})
