@@ -14,16 +14,16 @@
     "url": "git://github.com/iandotkelly/nlf.git"
   },
   "dependencies": {
-    "archy": "1.0.0",
-    "commander": "9.4.1",
-    "compare-versions": "5.0.1",
+    "archy": "^1.0.0",
+    "commander": "^9.4.1",
+    "compare-versions": "^5.0.1",
     "glob-all": "^3.3.1",
-    "snyk-resolve-deps": "4.7.3"
+    "snyk-resolve-deps": "^4.7.3"
   },
   "devDependencies": {
     "chai": "^4.3.7",
     "coveralls": "3.1.1",
-    "nyc": "15.1.0",
+    "nyc": "^15.1.0",
     "standard": "^17.0.0"
   },
   "engines": {
